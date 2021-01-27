@@ -5,7 +5,7 @@ services:
   ##############
   nextcloud-ws:
     image: nextcloud:latest
-    container_name: '${COMPOSE_PROJECT_NAME}-nextcloud-ws'
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-nextcloud-ws'
     links:
       - nextcloud-db
     restart: unless-stopped
@@ -13,7 +13,7 @@ services:
       - nextcloud:/var/www/html
       - ${NEXTCLOUD_CONFIG-./appdata/config}:/var/www/html/config
       - ${NEXTCLOUD_CUSTOM_APPS_DIR-./appdata/custom_apps}:/var/www/html/custom_apps
-      - ${NEXTCLOUD_APPDATA_DIR-../ws/appdata/nextcloud/ws/data}:/var/www/html/data
+      - ${NEXTCLOUD_APPDATA_DIR-../../ws/appdata/nextcloud/ws/data}:/var/www/html/data
       - ${NEXTCLOUD_THEMES_DIR-./appdata/themes}:/var/www/html/themes
       - /etc/localtime:/etc/localtime:ro
     environment:
@@ -22,17 +22,17 @@ services:
   nextcloud-db:
     build:
       context: "./bin/nextcloud-db/${BUILD_ARCH}"
-    container_name: '${COMPOSE_PROJECT_NAME}-nextcloud-db'
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-nextcloud-db'
     restart: unless-stopped
     ports:
-      - "${HOST_MACHINE_MYSQL_PORT}:3306"
+      - "${HOST_MACHINE_MYSQL_PORT-3307}:3306"
     volumes:
-      - ${MYSQL_DATA_DIR-../ws/appdata/nextcloud/db/data/mysql}:/var/lib/mysql
-      - ${MYSQL_LOG_DIR-../ws/appdata/nextcloud/db/log/mysql}:/var/log/mysql
+      - ${MYSQL_DATA_DIR-../../ws/appdata/nextcloud/db/data/mysql}:/var/lib/mysql
+      - ${MYSQL_LOG_DIR-../../ws/appdata/nextcloud/db/log/mysql}:/var/log/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD-tiger}
+      MYSQL_DATABASE: ${MYSQL_DATABASE-docker}
+      MYSQL_USER: ${MYSQL_USER-docker}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD-docker}
 volumes:
   nextcloud:
