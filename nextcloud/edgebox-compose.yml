@@ -11,10 +11,10 @@ services:
     restart: unless-stopped
     volumes:
       - nextcloud:/var/www/html
-      - ${NEXTCLOUD_CONFIG-./config}:/var/www/html/config
-      - ${NEXTCLOUD_CUSTOM_APPS_DIR-./custom_apps}:/var/www/html/custom_apps
+      - ${NEXTCLOUD_CONFIG-./appdata/config}:/var/www/html/config
+      - ${NEXTCLOUD_CUSTOM_APPS_DIR-./appdata/custom_apps}:/var/www/html/custom_apps
       - ${NEXTCLOUD_APPDATA_DIR-../ws/appdata/nextcloud/ws/data}:/var/www/html/data
-      - ${NEXTCLOUD_THEMES_DIR-./themes}:/var/www/html/themes
+      - ${NEXTCLOUD_THEMES_DIR-./appdata/themes}:/var/www/html/themes
       - /etc/localtime:/etc/localtime:ro
     environment:
       VIRTUAL_HOST: nextcloud.localhost,nextcloud.edgebox.local
