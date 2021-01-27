@@ -1,0 +1,38 @@
+version: "3"
+services:
+  ##############
+  # NextCloud EdgeApp
+  ##############
+  nextcloud-ws:
+    image: nextcloud:latest
+    container_name: '${COMPOSE_PROJECT_NAME}-nextcloud-ws'
+    links:
+      - nextcloud-db
+    restart: unless-stopped
+    volumes:
+      - nextcloud:/var/www/html
+      - ${NEXTCLOUD_CONFIG-./config}:/var/www/html/config
+      - ${NEXTCLOUD_CUSTOM_APPS_DIR-./custom_apps}:/var/www/html/custom_apps
+      - ${NEXTCLOUD_APPDATA_DIR-../ws/appdata/nextcloud/ws/data}:/var/www/html/data
+      - ${NEXTCLOUD_THEMES_DIR-./themes}:/var/www/html/themes
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      VIRTUAL_HOST: nextcloud.localhost,nextcloud.edgebox.local
+
+  nextcloud-db:
+    build:
+      context: "./bin/nextcloud-db/${BUILD_ARCH}"
+    container_name: '${COMPOSE_PROJECT_NAME}-nextcloud-db'
+    restart: unless-stopped
+    ports:
+      - "${HOST_MACHINE_MYSQL_PORT}:3306"
+    volumes:
+      - ${MYSQL_DATA_DIR-../ws/appdata/nextcloud/db/data/mysql}:/var/lib/mysql
+      - ${MYSQL_LOG_DIR-../ws/appdata/nextcloud/db/log/mysql}:/var/log/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+volumes:
+  nextcloud:
