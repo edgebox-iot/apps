@@ -1,0 +1,4 @@
+# Ignore all data inside "appdata" folder or any edgeapp.
+
+*/appdata/*
+!*/appdata/.gitkeep
