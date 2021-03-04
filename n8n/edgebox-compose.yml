@@ -1,0 +1,18 @@
+version: "3"
+services:
+  ##############
+  # n8n EdgeApp
+  ##############
+  n8n-ws:
+    build:
+      context: "./bin/n8n-ws/${BUILD_ARCH}"
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-n8n-ws'
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${DATA_FOLDER-../../ws/appdata/n8n/ws/data}:/home/node/.n8n
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      VIRTUAL_HOST: n8n.localhost,n8n.edgebox.local${INTERNET_URL}
+      N8N_HOST: localhost
+      N8N_PORT: 80
