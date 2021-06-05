@@ -1,0 +1,20 @@
+version: "3"
+services:
+  ##############
+  # Calibre Web EdgeApp
+  ##############
+  calibre-ws:
+    image: akhilrex/podgrab
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-podgrab-ws'
+    environment:
+      CHECK_FREQUENCY: 30
+      PASSWORD: mypodcasts
+      VIRTUAL_HOST: podgrab.localhost,podgrab.edgebox.local${INTERNET_URL}
+      VIRTUAL_PORT: 80
+      PUID: 1000
+      PGID: 1000
+      TZ: Europe/London
+    volumes:
+      - ./appdata/config:/config
+      - ./appdata/library:/assets
+    restart: unless-stopped
