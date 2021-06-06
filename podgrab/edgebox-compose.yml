@@ -1,9 +1,9 @@
 version: "3"
 services:
   ##############
-  # Calibre Web EdgeApp
+  # Podgrag Web EdgeApp
   ##############
-  calibre-ws:
+  podgrab-ws:
     image: akhilrex/podgrab
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-podgrab-ws'
     environment:
