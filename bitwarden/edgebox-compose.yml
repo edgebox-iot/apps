@@ -7,7 +7,7 @@ services:
     image: bitwardenrs/server:latest
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-bitwarden-ws'
     environment:
-      VIRTUAL_HOST: bitwarden.localhost,bitwarden.edgebox.local${INTERNET_URL}
+      VIRTUAL_HOST: bitwarden.localhost,bitwarden.edgebox,bitwarden.edgebox.local${INTERNET_URL}
       SIGNUPS_ALLOWED: "false"
       DOMAIN: http://bitwarden.edgebox.local
     volumes:

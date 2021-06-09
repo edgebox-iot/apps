@@ -1,0 +1,18 @@
+version: "3"
+services:
+  ##############
+  # Focalboard Web EdgeApp
+  ##############
+  focalboard-ws:
+    image: nicoulaj/focalboard
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-focalboard-ws'
+    environment:
+      VIRTUAL_HOST: focalboard.localhost,focalboard.edgebox,focalboard.edgebox.local${INTERNET_URL}
+      VIRTUAL_PORT: 80
+      PUID: 1000
+      PGID: 1000
+      TZ: Europe/London
+    volumes:
+    - ./config/config.json:/opt/focalboard/config.json
+    - ./appdata/library:/var/lib/focalboard
+    restart: unless-stopped

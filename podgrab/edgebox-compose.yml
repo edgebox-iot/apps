@@ -9,7 +9,7 @@ services:
     environment:
       CHECK_FREQUENCY: 30
       PASSWORD: mypodcasts
-      VIRTUAL_HOST: podgrab.localhost,podgrab.edgebox.local${INTERNET_URL}
+      VIRTUAL_HOST: podgrab.localhost,podgrab.edgebox,podgrab.edgebox.local${INTERNET_URL}
       VIRTUAL_PORT: 80
       PUID: 1000
       PGID: 1000

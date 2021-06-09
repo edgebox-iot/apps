@@ -13,6 +13,6 @@ services:
       - ${DATA_FOLDER-../../ws/appdata/n8n/ws/data}:/home/node/.n8n
       - /etc/localtime:/etc/localtime:ro
     environment:
-      VIRTUAL_HOST: n8n.localhost,n8n.edgebox.local${INTERNET_URL}
+      VIRTUAL_HOST: n8n.localhost,n8n.edgebox,n8n.edgebox.local${INTERNET_URL}
       N8N_HOST: localhost
       N8N_PORT: 80
