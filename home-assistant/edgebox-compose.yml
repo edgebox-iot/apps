@@ -1,0 +1,14 @@
+version: "3"
+services:
+  ##############
+  # Home Assistant EdgeApp
+  ##############
+  bitwarden-ws:
+    image: homeassistant/home-assistant:stable
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-home-assistant-ws'
+    environment:
+      VIRTUAL_HOST: home-assistant.edgebox.local${INTERNET_URL}
+    volumes:
+      - ./appdata/config:/config:rw
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
