@@ -1,3 +1,3 @@
 FROM homeassistant/home-assistant:stable
 
-EXPOSE 80
+EXPOSE 8123
