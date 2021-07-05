@@ -1,0 +1,18 @@
+version: "3"
+services:
+  ##############
+  # Home Assistant EdgeApp
+  ##############
+  home-assistant-ws:
+    build:  
+      context: "./bin/home-assistant-ws/"
+    # image: homeassistant/home-assistant:stable
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-home-assistant-ws'
+    # network_mode: host
+    environment:
+      VIRTUAL_HOST: home-assistant.edgebox.local${INTERNET_URL}
+      VIRTUAL_PORT: 8123
+    volumes:
+      - ./appdata/config:/config:rw
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
