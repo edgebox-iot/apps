@@ -11,7 +11,6 @@ services:
     restart: unless-stopped
     volumes:
       # - nextcloud:/var/www/html
-      - /media/backupdisk/nextcloud_volume_backup/html:/var/www/html
       - ${NEXTCLOUD_CONFIG-./appdata/config}:/var/www/html/config
       - ${NEXTCLOUD_CUSTOM_APPS_DIR-./appdata/custom_apps}:/var/www/html/custom_apps
       - ${NEXTCLOUD_APPDATA_DIR-../../../data/appdata/nextcloud/}:/var/www/html/data
