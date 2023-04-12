@@ -16,3 +16,8 @@ services:
       VIRTUAL_HOST: n8n.edgebox.local${INTERNET_URL}
       N8N_HOST: localhost
       N8N_PORT: 80
+      PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"
+      PUPPETEER_EXECUTABLE_PATH: "/usr/bin/chromium-browser"
+
+
+
