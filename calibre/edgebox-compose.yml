@@ -4,7 +4,7 @@ services:
   # Calibre Web EdgeApp
   ##############
   calibre-ws:
-    image: ghcr.io/linuxserver/calibre-web
+    image: ghcr.io/linuxserver/calibre-web:0.6.20
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-calibre-ws'
     environment:
       VIRTUAL_HOST: calibre.edgebox.local${INTERNET_URL}
