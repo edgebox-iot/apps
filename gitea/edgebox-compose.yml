@@ -1,0 +1,18 @@
+version: "3"
+services:
+  gitea-ws:
+    build:
+      context: "./bin/gitea-ws/${BUILD_ARCH}"
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-gitea-ws'
+    restart: unless-stopped
+    environment:
+      VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
+      VIRTUAL_PORT: 3000
+      USER_UID: 1000
+      USER_GID: 1000
+    volumes:
+      - ./appdata/ws/data:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    # ports:
+    #   - "2221:22" # SSH only for local access

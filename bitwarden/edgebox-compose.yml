@@ -7,9 +7,10 @@ services:
     image: bitwardenrs/server:latest
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-bitwarden-ws'
     environment:
-      VIRTUAL_HOST: bitwarden.edgebox.local${INTERNET_URL}
-      SIGNUPS_ALLOWED: "false"
-      DOMAIN: http://bitwarden.edgebox.local
+      VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
+      SIGNUPS_ALLOWED: '${BITWARDEN_SIGNUPS_ALLOWED}'
+      ADMIN_TOKEN: '${BITWARDEN_ADMIN_TOKEN}'
+      DOMAIN: http://${LOCAL_URL}
     volumes:
       - ./appdata/config:/data/:rw
     restart: unless-stopped

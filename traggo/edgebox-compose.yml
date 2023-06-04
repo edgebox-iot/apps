@@ -1,0 +1,18 @@
+version: "3"
+services:
+  ##############
+  # Traggo EdgeApp
+  ##############
+  traggo-ws:
+    build:
+      context: "./bin/ws/${BUILD_ARCH}"
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-traggo-ws'
+    environment:
+      VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
+      VIRTUAL_PORT: 3030
+      TRAGGO_DEFAULT_USERNAME: "${TRAGGO_DEFAULT_USERNAME-admin}"
+      TRAGGO_DEFAULT_USER_PASS: "${TRAGGO_DEFAULT_USER_PASS-traggo}"
+    volumes:
+      - ./appdata/:/opt/traggo/data:rw
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped

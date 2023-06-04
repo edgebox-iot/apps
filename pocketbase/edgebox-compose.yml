@@ -1,0 +1,14 @@
+version: "3"
+services:
+  ##############
+  # Pocketbase EdgeApp
+  ##############
+  pocketbase-ws:
+    build:
+      context: ./bin/pocketbase-ws/${BUILD_ARCH}/
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-pocketbase-ws'
+    restart: unless-stopped
+    environment:
+      VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
+
+

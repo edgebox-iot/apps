@@ -1,0 +1,18 @@
+version: "3"
+services:
+  ##############
+  # Jupyter EdgeApp
+  ##############
+  jupyter-ws:
+    image: andresvidal/jupyter-armv7l
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-jupyter-ws'
+    environment:
+      VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
+      VIRTUAL_PORT: 8888
+      JUPYTER_ENABLE_LAB: "yes"
+    volumes:
+      - ./appdata/ws/notebooks:/notebooks/jupyter:rw
+      - /etc/localtime:/etc/localtime:ro
+    command: ["jupyter", "notebook", "--ip=*", "--allow-root", "--no-browser", "--NotebookApp.token='${JUPYTER_TOKEN-}'", "--NotebookApp.password='${JUPYTER_PASSWORD-}'", "--NotebookApp.allow_origin='*'"]
+    restart: unless-stopped
+    

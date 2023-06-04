@@ -1,0 +1,38 @@
+version: "3"
+services:
+  planka-ws:
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-planka-ws'
+    image: ghcr.io/plankanban/planka:latest
+    command: ["./start.sh"]
+    restart: unless-stopped
+    volumes:  
+      - ./appdata/ws/app/public/user-avatars:/app/public/user-avatars:rw
+      - ./appdata/ws/app/public/project-background-images:/app/public/project-background-images:rw
+      - ./appdata/ws/app/private/attachments:/app/private/attachments:rw
+    environment:
+      VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
+      BASE_URL: https://${MAIN_URL}
+      TRUST_PROXY: 0
+      DATABASE_URL: postgresql://postgres@planka-db/planka
+      SECRET_KEY: ${PLANKA_SECRET_KEY}
+
+      # related: https://github.com/knex/knex/issues/2354
+      # As knex does not pass query parameters from the connection string we
+      # have to use environment variables in order to pass the desired values, e.g.
+      # - PGSSLMODE=<value>
+
+      # Configure knex to accept SSL certificates
+      # - KNEX_REJECT_UNAUTHORIZED_SSL_CERTIFICATE=false
+
+    depends_on:
+      - planka-db
+
+  planka-db:
+    image: postgres:14-alpine
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-planka-db'
+    restart: unless-stopped
+    volumes:
+      - ./appdata/db/var/lib/postgresql/data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: planka
+      POSTGRES_HOST_AUTH_METHOD: trust

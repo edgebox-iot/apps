@@ -8,9 +8,8 @@ services:
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-podgrab-ws'
     environment:
       CHECK_FREQUENCY: 30
-      PASSWORD: mypodcasts
-      VIRTUAL_HOST: podgrab.edgebox.local${INTERNET_URL}
-      # VIRTUAL_PORT: 80
+      PASSWORD: '${PODGRAB_PASSWORD-mypodcasts}'
+      VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
       PUID: 1000
       PGID: 1000
       TZ: Europe/London
