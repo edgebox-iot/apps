@@ -15,8 +15,8 @@ services:
       TZ: ${JELLYFIN_TIMEZONE-Etc/UTC}
       # JELLYFIN_PublishedServerUrl: 192.168.0.5 #optional
     volumes:
-      - /.appdata/ws/config:/config
-      - /.appdata/ws/data:/data
+      - ./appdata/ws/config:/config
+      - ./appdata/ws/data:/data
     # ports:
       # - 8096:8096 (Handled automatically by proxy)
       # - 8920:8920 #optional
