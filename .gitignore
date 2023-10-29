@@ -2,6 +2,8 @@
 
 */appdata/*
 !*/appdata/.gitkeep
+!filebrowser/appdata/filebrowser-ws/.filebrowser.json
+!filebrowser/appdata/filebrowser-ws/database.db
 myedgeapp.env
 postinstall.done
 edgeapp.env

@@ -1,0 +1,17 @@
+version: "3"
+services:
+  ##############
+  # Filebrowser EdgeApp
+  ##############
+  filebrowser-ws:
+    build:
+      context: "./bin/${BUILD_ARCH}"
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-filebrowser-ws'
+    environment:
+      VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
+    volumes:
+      - ../..:/srv
+      - ./appdata/filebrowser-ws/database.db:/database.db
+      - ./appdata/filebrowser-ws/.filebrowser.json:/.filebrowser.json
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped 
