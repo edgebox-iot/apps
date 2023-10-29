@@ -1,0 +1,7 @@
+version: "3"
+services:
+  chatpad-ws:
+    image: ghcr.io/deiucanta/chatpad:latest
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-chatpad-ws'
+    environment:
+      VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
