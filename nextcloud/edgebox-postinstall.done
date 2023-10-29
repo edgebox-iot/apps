@@ -1,6 +1,0 @@
--T nextcloud-ws chown www-data config
--T nextcloud-ws chown www-data data
--T -u 33 nextcloud-ws php occ maintenance:install --database=mysql --database-name=docker --database-host=nextcloud-db --database-user=docker --database-pass=docker --admin-user=system --admin-pass=pw
--T -u 33 nextcloud-ws php occ config:system:set trusted_domains 1 --value=${LOCAL_URL}
--T -u 33 nextcloud-ws php occ config:system:set trusted_domains 2 --value=${INTERNET_URL}
--T -u 33 nextcloud-ws php occ config:system:set overwrite.cli.url --value=http://${LOCAL_URL}
