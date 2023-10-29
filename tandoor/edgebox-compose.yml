@@ -1,0 +1,37 @@
+version: '3'
+services:
+  tandoor-db:
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-tandoor-db'
+    environment:
+      POSTGRES_DB: djangodb
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_PASSWORD: tandoor
+      POSTGRES_USER: djangodb
+    image: postgres:14-alpine
+    restart: unless-stopped
+    volumes:
+    - ./appdata/db/var/lib/postgresql/data:/var/lib/postgresql/data:rw
+  tandoor-ws:
+    build:
+      context: "./bin/tandoor-ws/${BUILD_ARCH}"
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-tandoor-ws'
+    depends_on:
+      tandoor-db:
+        condition: service_started
+    environment:
+      VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
+      VIRTUAL_PORT: 8080
+      DB_ENGINE: django.db.backends.postgresql
+      POSTGRES_DB: djangodb
+      POSTGRES_HOST: tandoor-db
+      POSTGRES_PASSWORD: tandoor
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: djangodb
+      SECRET_KEY: tandoor
+      VIRTUAL_HOST: tandoor.jptbox.local
+    restart: unless-stopped
+    volumes:
+    - ./appdata/ws/opt/recipes/staticfiles:/opt/recipes/staticfiles:rw
+    - ./appdata/ws/opt/recipes/mediafiles:/opt/recipes/mediafiles:rw
+    - /etc/timezone:/etc/timezone:ro
+    - /etc/localtime:/etc/localtime:ro

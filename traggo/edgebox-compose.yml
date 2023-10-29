@@ -10,7 +10,7 @@ services:
     environment:
       VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
       VIRTUAL_PORT: 3030
-      TRAGGO_DEFAULT_USERNAME: "${TRAGGO_DEFAULT_USERNAME-admin}"
+      TRAGGO_DEFAULT_USER_NAME: "${TRAGGO_DEFAULT_USER_NAME-admin}"
       TRAGGO_DEFAULT_USER_PASS: "${TRAGGO_DEFAULT_USER_PASS-traggo}"
     volumes:
       - ./appdata/:/opt/traggo/data:rw
