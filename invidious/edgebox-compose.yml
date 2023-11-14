@@ -1,0 +1,53 @@
+version: "3"
+services:
+  ##############
+  # Invidious EdgeApp
+  ##############
+  invidious-ws:
+    build:  
+      context: "./bin/${BUILD_ARCH}"
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-invidious-ws'
+    environment:
+      VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
+      VIRTUAL_PORT: 3000
+      # Please read the following file for a comprehensive list of all available
+      # configuration options and their associated syntax:
+      # https://github.com/iv-org/invidious/blob/master/config/config.example.yml
+      INVIDIOUS_CONFIG: |
+        db:
+          dbname: invidious
+          user: kemal
+          password: kemal
+          host: invidious-db
+          port: 5432
+        check_tables: true
+        external_port: 80
+        domain: ${INVIDIOUS_LOGIN_DOMAIN}
+        # https_only: false
+        # statistics_enabled: false
+        hmac_key: "${INVIDIOUS_HMAC_KEY}"
+        captcha_enabled: false
+    volumes:
+      # - ./appdata/config:/config:rw
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: "1G"
+        max-file: "4"
+    depends_on:
+      - invidious-db
+
+  invidious-db:
+    image: docker.io/library/postgres:14
+    restart: unless-stopped
+    volumes:
+      - ./appdata/invidious-db/data:/var/lib/postgresql/data
+      - ./appdata/invidious-db/config/sql:/config/sql
+      - ./bin/init-invidious-db.sh:/docker-entrypoint-initdb.d/init-invidious-db.sh
+    environment:
+      POSTGRES_DB: invidious
+      POSTGRES_USER: kemal
+      POSTGRES_PASSWORD: kemal
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kemal -d invidious"]

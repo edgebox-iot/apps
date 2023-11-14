@@ -5,5 +5,6 @@
 myedgeapp.env
 postinstall.done
 edgeapp.env
+auth.env
 */.run
 edgebox-postinstall.done

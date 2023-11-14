@@ -1,0 +1,14 @@
+version: "3"
+services:
+  ##############
+  # Webrcade EdgeApp
+  ##############
+  webrcade-ws:
+    image: webrcade/webrcade:latest
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-webrcade-ws'
+    restart: unless-stopped
+    volumes:
+      - ./appdata/webrcade-ws:/var/www/html/content
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}

@@ -4,37 +4,42 @@ services:
   # Conduit (matrix server) Web EdgeApp
   ##############
   conduit-ws:
-    # image: matrixconduit/matrix-conduit:latest
-    build:
-      context: "./bin/ws"
-      args:
-        CREATED: '2021-07-01T22:44:00Z'
-        VERSION: '0.1.0'
-        LOCAL: 'false'
-        GIT_REF: origin/master
+    ### If you already built the Conduit image with 'docker build' or want to use a registry image,
+    ### then you are ready to go.
+    image: matrixconduit/matrix-conduit:latest
+    ### If you want to build a fresh image from the sources, then comment the image line and uncomment the
+    ### build lines. If you want meaningful labels in your built Conduit image, you should run docker-compose like this:
+    ### CREATED=$(date -u +'%Y-%m-%dT%H:%M:%SZ') VERSION=$(grep -m1 -o '[0-9].[0-9].[0-9]' Cargo.toml) docker-compose up -d
+    # build:
+    #     context: .
+    #     args:
+    #         CREATED: '2021-03-16T08:18:27Z'
+    #         VERSION: '0.1.0'
+    #         LOCAL: 'false'
+    #         GIT_REF: origin/master
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-conduit-ws'
-    environment:
-      VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
-      VIRTUAL_PORT: 8000
-      PUID: 1000
-      PGID: 1000
-      TZ: ${CONDUIT_TIMEZONE-Europe/London}
-      ### Uncomment and change values as desired
-      CONDUIT_SERVER_NAME: ${MAIN_URL}
-      CONDUIT_TRUSTED_SERVERS: '["matrix.org"]'
-      CONDUIT_ADDRESS: '${LOCAL_IP-192.168.1.0}'
-      CONDUIT_PORT: 8000
-      # CONDUIT_CONFIG: '/srv/conduit/conduit.toml'  # if you want to configure purely by env vars, set this to an empty string ''
-      CONDUIT_CONFIG: ''
-      # Available levels are: error, warn, info, debug, trace - more info at: https://docs.rs/env_logger/*/env_logger/#enabling-logging
-      CONDUIT_LOG: info
-      CONDUIT_ALLOW_JAEGER: '${CONDUIT_ALLOW_JAEGER-false}'
-      CONDUIT_ALLOW_REGISTRATION : '${CONDUIT_ALLOW_REGISTRATION-true}'
-      CONDUIT_ALLOW_ENCRYPTION: '${CONDUIT_ALLOW_ENCRYPTION-false}'
-      CONDUIT_ALLOW_FEDERATION: '${CONDUIT_ALLOW_FEDERATION-false}'
-      CONDUIT_DATABASE_PATH: /srv/conduit/.local/share/conduit
-      CONDUIT_WORKERS: 10
-      CONDUIT_MAX_REQUEST_SIZE: 20_000_000  # in bytes, ~20 MB
-    volumes:
-      - ./appdata/ws/srv/conduit/.local/share/conduit:/srv/conduit/.local/share/conduit
     restart: unless-stopped
+    # ports:
+    #     - 8448:6167
+    volumes:
+        - /etc/localtime:/etc/localtime:ro
+        - conduit-db:/var/lib/matrix-conduit/
+    environment:
+        VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
+        VIRTUAL_PORT: 6167
+        CONDUIT_SERVER_NAME: ${CONDUIT_DOMAIN}
+        CONDUIT_DATABASE_PATH: /var/lib/matrix-conduit/
+        CONDUIT_DATABASE_BACKEND: rocksdb
+        CONDUIT_PORT: 6167
+        CONDUIT_MAX_REQUEST_SIZE: 20_000_000 # in bytes, ~20 MB
+        CONDUIT_ALLOW_REGISTRATION: '${CONDUIT_ALLOW_REGISTRATION-true}'
+        CONDUIT_ALLOW_FEDERATION: '${CONDUIT_ALLOW_FEDERATION-true}'
+        CONDUIT_ALLOW_CHECK_FOR_UPDATES: 'true'
+        CONDUIT_TRUSTED_SERVERS: '["matrix.org"]'
+        #CONDUIT_MAX_CONCURRENT_REQUESTS: 100
+        #CONDUIT_LOG: warn,rocket=off,_=off,sled=off
+        CONDUIT_ADDRESS: 0.0.0.0
+        CONDUIT_CONFIG: '' # Ignore this
+
+volumes:
+  conduit-db:
