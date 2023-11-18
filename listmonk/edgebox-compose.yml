@@ -1,0 +1,34 @@
+version: "3"
+services:
+  listmonk-ws:
+    image: listmonk/listmonk:latest
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-listmonk-ws'
+    depends_on:
+      - listmonk-db
+    environment:
+      VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
+      VIRTUAL_PORT: 9000
+      TZ: Etc/UTC
+      LISTMONK_app__admin_username: ${LISTMONK_ADMIN_USERNAME}
+      LISTMONK_app__admin_password: ${LISTMONK_ADMIN_PASSWORD}
+    volumes:
+      - ./appdata/listmonk-ws/config.toml:/listmonk/config.toml:rw
+      - ./appdata/listmonk-ws/uploads:/listmonk/uploads:rw
+    restart: unless-stopped
+  
+  listmonk-db:
+    image: postgres:13
+    ports:
+      - "9432:5432"
+    environment:
+    - POSTGRES_PASSWORD=listmonk
+    - POSTGRES_USER=listmonk
+    - POSTGRES_DB=listmonk
+    volumes:
+      - ./appdata/listmonk-db/data:/var/lib/postgresql/data:rw
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U listmonk"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
