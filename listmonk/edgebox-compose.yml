@@ -12,7 +12,7 @@ services:
       LISTMONK_app__admin_username: ${LISTMONK_ADMIN_USERNAME}
       LISTMONK_app__admin_password: ${LISTMONK_ADMIN_PASSWORD}
     volumes:
-      - ./appdata/listmonk-ws/config.toml:/listmonk/config.toml:rw
+      - ./config/config.toml:/listmonk/config.toml:rw
       - ./appdata/listmonk-ws/uploads:/listmonk/uploads:rw
     restart: unless-stopped
   
