@@ -11,7 +11,7 @@ In this case, it will be located in `/home/system/components/apps`.
 
 If you have a custom Edgebox setup, or for detached usage, you can install this repository manually by running the following commands:
 ```bash
-cd /home/system/components/apps
+cd /home/system/components/
 git clone https://github.com/edgebox-iot/apps.git
 ```
 
