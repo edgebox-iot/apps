@@ -5,3 +5,5 @@ services:
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-appsmith-ws'
     environment:
       VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
+    volumes:
+      - ./appdata/appsmith-ws/stacks:/appsmith-stacks
