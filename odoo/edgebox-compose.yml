@@ -1,0 +1,36 @@
+version: "3"
+services:
+  ##############
+  # Odoo EdgeApp
+  ##############
+  odoo-ws:
+    image: ghcr.io/edgebox-iot/apps:odoo-1.0.0
+    build:  
+      context: "./bin/odoo-ws"
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-odoo-ws'
+    depends_on: 
+      - odoo-db
+    environment:
+      VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
+      VIRTUAL_PORT: 8069
+      HOST: odoo-db
+      # VIRTUAL_PROTO: https
+      # HTTPS_METHOD: noredirect
+      # HTTPS_METHOD: nohttps
+    volumes:
+      - ./appdata/odoo-ws/data:/var/lib/odoo:rw
+      - ./appdata/odoo-ws/extra-addons:/mnt/extra-addons:rw
+      - ./appdata/odoo-ws/config:/etc/odoo:rw
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+  odoo-db:
+    image: postgres:15
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-odoo-db'
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: odoo
+    volumes:
+      - ./appdata/odoo-db:/var/lib/postgresql/data:rw
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped

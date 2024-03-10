@@ -27,6 +27,7 @@ services:
         # statistics_enabled: false
         hmac_key: "${INVIDIOUS_HMAC_KEY}"
         captcha_enabled: false
+        registration_enabled: false
     volumes:
       # - ./appdata/config:/config:rw
       - /etc/localtime:/etc/localtime:ro
