@@ -1,0 +1,30 @@
+version: "3"
+services:
+  limesurvey-ws:
+    image: docker.io/martialblog/limesurvey:latest
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-limesurvey-ws'
+    depends_on:
+      - limesurvey-db
+    environment:
+      VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
+      VIRTUAL_PORT: 8080
+      TZ: Etc/UTC
+      DB_HOST: limesurvey-db
+      DB_PASSWORD: "limesurvey"
+      ADMIN_PASSWORD: ${LIMESURVEY_ADMIN_PASSWORD}
+    volumes:
+      - ./appdata/limesurvey-ws/surveys:/var/html/upload/surveys:rw
+      # - ./appdata/limesurvey-ws/var/html:/var/www/html:rw
+    restart: unless-stopped
+  
+  limesurvey-db:
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-limesurvey-db'
+    image: docker.io/mysql:5.7
+    environment:
+      - MYSQL_USER=limesurvey
+      - MYSQL_DATABASE=limesurvey
+      - MYSQL_PASSWORD=limesurvey
+      - MYSQL_ROOT_PASSWORD=limesurvey
+    volumes:
+      - ./appdata/listmonk-db/data:/var/lib/postgresql/data:rw
+    restart: unless-stopped

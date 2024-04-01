@@ -1,0 +1,19 @@
+version: "3"
+services:
+  ##############
+  # NocoDB EdgeApp
+  ##############
+  nocodb-ws:
+    image: ghcr.io/edgebox-iot/apps:nocodb-1.0.0
+    build:  
+      context: "./bin/nocodb-ws"
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-nocodb-ws'
+    environment:
+      VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
+      # VIRTUAL_PROTO: https
+      # HTTPS_METHOD: noredirect
+      # HTTPS_METHOD: nohttps
+    volumes:
+      - ./appdata/nocodb-ws:/usr/app/data/:rw
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped

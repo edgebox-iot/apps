@@ -1,0 +1,36 @@
+version: "3"
+services:
+  ##############
+  # Linkwarden EdgeApp
+  ##############
+  linkwarden-ws:
+    image: ghcr.io/edgebox-iot/apps:linkwarden-1.0.0
+    build:  
+      context: "./bin/linkwarden-ws"
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-linkwarden-ws'
+    environment:
+      VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
+      # VIRTUAL_PROTO: https
+      # HTTPS_METHOD: noredirect
+      # HTTPS_METHOD: nohttps
+      DATABASE_URL: postgresql://postgres:linkwarden@linkwarden-db:5432/postgres
+      NEXTAUTH_SECRET: PztCooaPVyjKd9Pjd39T
+      NEXTAUTH_URL: http://localhost:3000/api/v1/auth
+      NEXT_PUBLIC_DISABLE_REGISTRATION: '${LINKWARDEN_DISABLE_REGISTRATION}'
+      POSTGRES_PASSWORD: linkwarden
+    volumes:
+      - ./appdata/linkwarden-ws:/data/data:rw
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+    depends_on:
+      - linkwarden-db
+
+  linkwarden-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: linkwarden
+    restart: always
+    volumes:
+      - ./appdata/linkwarden-db/pgdata:/var/lib/postgresql/data

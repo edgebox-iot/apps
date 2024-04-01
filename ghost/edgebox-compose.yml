@@ -1,0 +1,23 @@
+version: "3"
+services:
+  ##############
+  # Ghost EdgeApp
+  ##############
+  ghost-ws:
+    image: ghcr.io/edgebox-iot/apps:ghost-1.0.0
+    build:  
+      context: "./bin/ghost-ws"
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-ghost-ws'
+    environment:
+      VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
+      # VIRTUAL_PROTO: https
+      # HTTPS_METHOD: noredirect
+      # HTTPS_METHOD: nohttps
+      database__connection__filename: /var/lib/ghost/content/data/ghost.db
+      url: http://${MAIN_URL}
+      urlSSL: https://${MAIN_URL}
+      NODE_ENV: development
+    volumes:
+      - ./appdata/content:/var/lib/ghost/content:rw
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped

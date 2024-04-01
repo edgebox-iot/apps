@@ -1,0 +1,23 @@
+version: "3"
+services:
+  ##############
+  # Fresh RSS EdgeApp
+  ##############
+  freshrss-ws:
+    image: ghcr.io/edgebox-iot/apps:freshrss-1.0.0
+    build:  
+      context: "./bin/freshrss-ws"
+    # build:  
+    #   context: "./bin/tinyrss-ws"
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-freshrss-ws'
+    environment:
+      VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
+      # VIRTUAL_PROTO: https
+      # HTTPS_METHOD: noredirect
+      # HTTPS_METHOD: nohttps
+      CRON_MIN: 1,31
+    volumes:
+      - ./appdata/data:/var/www/FreshRSS/data:rw
+      - ./appdata/extensions:/var/www/FreshRSS/extensions:rw
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
