@@ -1,0 +1,27 @@
+name: Docker Build and Publish
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build and Publish Docker images
+        run: |
+          for folder in */; do
+            if [ -f "$folder/Dockerfile" ]; then
+              image_name="${folder%/}"
+              echo "Building Docker image for $image_name"
+              docker buildx build --platform linux/amd64,linux/arm64 -t $GITHUB_REPOSITORY:$image_name --push $folder
+            fi
+          done
