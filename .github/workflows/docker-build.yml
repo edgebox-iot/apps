@@ -35,8 +35,8 @@ jobs:
         run: |
           for folder in */; do
             if [ -f "$folder/Dockerfile" ]; then
-              image_name="${folder%/}"
-              echo "Building Docker image for $image_name"
-              docker buildx build --platform linux/amd64,linux/arm64 -t $GITHUB_REPOSITORY:$image_name --push $folder
+                image_name="${folder%/}"
+                echo "Building Docker image for $image_name"
+                docker buildx build --platform linux/amd64,linux/arm64 -t ${{ env.REGISTRY }}/$GITHUB_REPOSITORY:$image_name --push $folder
             fi
           done
