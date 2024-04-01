@@ -6,7 +6,7 @@ services:
   freshrss-ws:
     image: ghcr.io/edgebox-iot/apps:freshrss-1.0.0
     build:  
-      context: "./bin/freshrss-ws"
+      context: "./"
     # build:  
     #   context: "./bin/tinyrss-ws"
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-freshrss-ws'
