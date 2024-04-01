@@ -38,6 +38,6 @@ jobs:
                 image_name="${folder%/}"
                 echo "Building Docker image for $image_name"
                 version=$(grep EDGEAPP_VERSION $folder/edgebox.env | cut -d '=' -f2)
-                docker buildx build --platform linux/amd64,linux/arm64 -t ${{ env.REGISTRY }}/$GITHUB_REPOSITORY:$image_name:$version --push $folder
+                docker buildx build --platform linux/amd64,linux/arm64 -t ${{ env.REGISTRY }}/$GITHUB_REPOSITORY/$image_name:$version --push $folder
             fi
           done
