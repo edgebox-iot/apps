@@ -4,9 +4,9 @@ services:
   # Home Assistant EdgeApp
   ##############
   home-assistant-ws:
+    image: ghcr.io/edgebox-iot/apps/home-assistant:1.0.0
     build:  
-      context: "./bin/home-assistant-ws/"
-    # image: homeassistant/home-assistant:stable
+      context: "./"
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-home-assistant-ws'
     # network_mode: host
     environment:

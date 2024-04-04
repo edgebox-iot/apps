@@ -4,9 +4,9 @@ services:
   # Ghost EdgeApp
   ##############
   ghost-ws:
-    image: ghcr.io/edgebox-iot/apps:ghost-1.0.0
+    image: ghcr.io/edgebox-iot/apps/ghost:1.0.0
     build:  
-      context: "./bin/ghost-ws"
+      context: "./"
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-ghost-ws'
     environment:
       VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
