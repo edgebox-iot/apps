@@ -1,0 +1,98 @@
+version: "3"
+services:
+  ##############
+  # Immich EdgeApp
+  ##############
+  immich-ws:
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-immich-ws'
+    image: ghcr.io/edgebox-iot/apps/immich:1.0.0
+    build:  
+      context: "./"
+    command: ['start.sh', 'immich']
+    environment:
+      VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
+      # VIRTUAL_PROTO: https
+      # HTTPS_METHOD: noredirect
+      # HTTPS_METHOD: nohttps
+      UPLOAD_LOCATION: ./appdata/immich-ws
+      IMMICH_VERSION: v1.100.0
+      DB_PASSWORD: postgres
+      DB_HOSTNAME: immich-db
+      DB_USERNAME: postgres
+      DB_DATABASE_NAME: immich
+      REDIS_HOSTNAME: immich-redis
+    volumes:
+      - ./appdata/immich-ws:/usr/src/app/upload
+      - /etc/localtime:/etc/localtime:ro
+    depends_on:
+      - immich-redis
+      - immich-db
+    restart: unless-stopped
+
+  immich-microservices:
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-immich-microservices'
+    image: ghcr.io/edgebox-iot/apps:immich-1.0.0
+    build:  
+      context: "./"
+    # extends: # uncomment this section for hardware acceleration - see https://immich.app/docs/features/hardware-transcoding
+    #   file: hwaccel.transcoding.yml
+    #   service: cpu # set to one of [nvenc, quicksync, rkmpp, vaapi, vaapi-wsl] for accelerated transcoding
+    command: ['start.sh', 'microservices']
+    volumes:
+      - ./appdata/immich-ws/upload:/usr/src/app/upload/upload
+      - ./appdata/immich-ws/library:/usr/src/app/upload/library
+      - ./appdata/immich-ws/thumbs:/usr/src/app/upload/thumbs
+    environment:
+      UPLOAD_LOCATION: ./appdata/immich-ws
+      IMMICH_VERSION: v1.100.0
+      DB_PASSWORD: postgres
+      DB_HOSTNAME: immich-db
+      DB_USERNAME: postgres
+      DB_DATABASE_NAME: immich
+      REDIS_HOSTNAME: immich-redis
+    depends_on:
+      - immich-redis
+      - immich-db
+    restart: unless-stopped
+  
+  immich-machine-learning:
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-immich-machine-learning'
+    # For hardware acceleration, add one of -[armnn, cuda, openvino] to the image tag.
+    # Example tag: ${IMMICH_VERSION:-release}-cuda
+    image: ghcr.io/immich-app/immich-machine-learning:v1.100.0
+    # extends: # uncomment this section for hardware acceleration - see https://immich.app/docs/features/ml-hardware-acceleration
+    #   file: hwaccel.ml.yml
+    #   service: cpu # set to one of [armnn, cuda, openvino, openvino-wsl] for accelerated inference - use the `-wsl` version for WSL2 where applicable
+    volumes:
+      - ./appdata/immich-machine-learning:/cache:rw
+    environment:
+      UPLOAD_LOCATION: ./appdata/immich-ws
+      IMMICH_VERSION: v1.100.0
+      DB_HOSTNAME: immich-db
+      DB_DATABASE_NAME: immich
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      REDIS_HOSTNAME: immich-redis
+    depends_on:
+      - immich-redis
+      - immich-db
+    restart: unless-stopped
+
+  immich-redis:
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-immich-redis'
+    image: registry.hub.docker.com/library/redis:6.2-alpine@sha256:51d6c56749a4243096327e3fb964a48ed92254357108449cb6e23999c37773c5
+    restart: unless-stopped
+    volumes:
+      - ./appdata/immich-redis:/data:rw
+    
+  immich-db:
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-immich-db'
+    image: registry.hub.docker.com/tensorchord/pgvecto-rs:pg14-v0.2.0@sha256:90724186f0a3517cf6914295b5ab410db9ce23190a2d9d0b9dd6463e3fa298f0
+    environment:
+      POSTGRES_DB: immich
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    restart: unless-stopped
+    volumes:
+      - ./appdata/immich-db:/var/lib/postgresql/data:rw
+

@@ -4,7 +4,7 @@ services:
   # Fresh RSS EdgeApp
   ##############
   freshrss-ws:
-    image: ghcr.io/edgebox-iot/apps:freshrss-1.0.0
+    image: ghcr.io/edgebox-iot/apps/freshrss:1.0.0
     build:  
       context: "./"
     # build:  
