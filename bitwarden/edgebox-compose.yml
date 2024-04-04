@@ -4,7 +4,9 @@ services:
   # Bitwarden EdgeApp
   ##############
   bitwarden-ws:
-    image: bitwardenrs/server:latest
+    image: ghcr.io/edgebox-iot/apps/bitwarden:1.0.0
+    build:  
+      context: "./"
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-bitwarden-ws'
     environment:
       VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}

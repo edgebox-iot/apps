@@ -1,0 +1,3 @@
+FROM ghcr.io/deiucanta/chatpad:f45cd53bc410412610c1ba1cbd84cd137d8e167d
+
+EXPOSE 80
