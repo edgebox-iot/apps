@@ -1,3 +1,3 @@
-FROM ghost:5.81.1-alpine
+FROM ghost:5.81.1
 
 EXPOSE 2368
