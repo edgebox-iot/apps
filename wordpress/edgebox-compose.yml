@@ -4,9 +4,9 @@ services:
   # WordPress EdgeApp
   ##############
   wordpress-ws:
-    image: ghcr.io/edgebox-iot/apps:wordpress-1.0.0
+    image: ghcr.io/edgebox-iot/apps/wordpress:1.0.0
     build:  
-      context: "./bin/wordpress-ws"
+      context: "./"
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-wordpress-ws'
     environment:
       VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}

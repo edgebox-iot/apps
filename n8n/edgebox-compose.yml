@@ -4,8 +4,9 @@ services:
   # n8n EdgeApp
   ##############
   n8n-ws:
-    build:
-      context: "./bin/n8n-ws/${BUILD_ARCH}"
+    image: ghcr.io/edgebox-iot/apps/n8n:1.0.0
+    build:  
+      context: "./"
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-n8n-ws'
     restart: unless-stopped
     volumes:

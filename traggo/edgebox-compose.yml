@@ -4,8 +4,9 @@ services:
   # Traggo EdgeApp
   ##############
   traggo-ws:
-    build:
-      context: "./bin/ws/${BUILD_ARCH}"
+    image: ghcr.io/edgebox-iot/apps/traggo:1.0.0
+    build:  
+      context: "./"
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-traggo-ws'
     environment:
       VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}

@@ -2,8 +2,10 @@ version: "3"
 services:
   planka-ws:
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-planka-ws'
-    image: ghcr.io/plankanban/planka:latest
-    command: ["./start.sh"]
+    image: ghcr.io/edgebox-iot/apps/planka:1.0.0
+    build:  
+      context: "./"
+    command: ["./start.sh"] # Can this be part of the Dockerfile?
     restart: unless-stopped
     volumes:  
       - ./appdata/ws/app/public/user-avatars:/app/public/user-avatars:rw

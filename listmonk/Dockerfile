@@ -1,0 +1,1 @@
+FROM listmonk/listmonk:v3.0.0

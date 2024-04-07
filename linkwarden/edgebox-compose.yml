@@ -4,9 +4,9 @@ services:
   # Linkwarden EdgeApp
   ##############
   linkwarden-ws:
-    image: ghcr.io/edgebox-iot/apps:linkwarden-1.0.0
+    image: ghcr.io/edgebox-iot/apps/linkwarden:1.0.0
     build:  
-      context: "./bin/linkwarden-ws"
+      context: "./"
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-linkwarden-ws'
     environment:
       VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}

@@ -4,9 +4,9 @@ services:
   # Odoo EdgeApp
   ##############
   odoo-ws:
-    image: ghcr.io/edgebox-iot/apps:odoo-1.0.0
+    image: ghcr.io/edgebox-iot/apps/odoo:1.0.0
     build:  
-      context: "./bin/odoo-ws"
+      context: "./"
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-odoo-ws'
     depends_on: 
       - odoo-db

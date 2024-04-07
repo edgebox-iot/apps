@@ -4,8 +4,9 @@ services:
   # Pocketbase EdgeApp
   ##############
   pocketbase-ws:
-    build:
-      context: ./bin/pocketbase-ws/${BUILD_ARCH}/
+    image: ghcr.io/edgebox-iot/apps/pocketbase:1.0.0
+    build:  
+      context: "./"
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-pocketbase-ws'
     restart: unless-stopped
     environment:

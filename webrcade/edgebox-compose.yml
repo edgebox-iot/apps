@@ -4,7 +4,9 @@ services:
   # Webrcade EdgeApp
   ##############
   webrcade-ws:
-    image: webrcade/webrcade:latest
+    image: ghcr.io/edgebox-iot/apps/webrcade:1.0.0
+    build:  
+      context: "./" 
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-webrcade-ws'
     restart: unless-stopped
     volumes:

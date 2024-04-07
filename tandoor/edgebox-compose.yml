@@ -12,8 +12,9 @@ services:
     volumes:
     - ./appdata/db/var/lib/postgresql/data:/var/lib/postgresql/data:rw
   tandoor-ws:
+    image: ghcr.io/edgebox-iot/apps/tandoor:1.0.0
     build:
-      context: "./bin/tandoor-ws/${BUILD_ARCH}"
+      context: "./"
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-tandoor-ws'
     depends_on:
       tandoor-db:

@@ -4,7 +4,9 @@ services:
   # NextCloud EdgeApp
   ##############
   nextcloud-ws:
-    image: nextcloud:latest
+    image: ghcr.io/edgebox-iot/apps/nextcloud:1.0.0
+    build:  
+      context: "./"
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-nextcloud-ws'
     links:
       - nextcloud-db
@@ -20,8 +22,7 @@ services:
       VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
 
   nextcloud-db:
-    build:
-      context: "./bin/nextcloud-db/${BUILD_ARCH}"
+    image: mariadb:10.3
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-nextcloud-db'
     restart: unless-stopped
     ports:

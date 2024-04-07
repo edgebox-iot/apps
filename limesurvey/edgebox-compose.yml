@@ -1,7 +1,9 @@
 version: "3"
 services:
   limesurvey-ws:
-    image: docker.io/martialblog/limesurvey:latest
+    image: ghcr.io/edgebox-iot/apps/jellyfin:1.0.0
+    build:  
+      context: "./"
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-limesurvey-ws'
     depends_on:
       - limesurvey-db

@@ -4,9 +4,9 @@ services:
   # NocoDB EdgeApp
   ##############
   nocodb-ws:
-    image: ghcr.io/edgebox-iot/apps:nocodb-1.0.0
+    image: ghcr.io/edgebox-iot/apps/nocodb:1.0.0
     build:  
-      context: "./bin/nocodb-ws"
+      context: "./"
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-nocodb-ws'
     environment:
       VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}

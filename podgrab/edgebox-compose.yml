@@ -4,7 +4,9 @@ services:
   # Podgrag Web EdgeApp
   ##############
   podgrab-ws:
-    image: akhilrex/podgrab
+    image: ghcr.io/edgebox-iot/apps/podgrab:1.0.0
+    build:  
+      context: "./"
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-podgrab-ws'
     environment:
       CHECK_FREQUENCY: 30

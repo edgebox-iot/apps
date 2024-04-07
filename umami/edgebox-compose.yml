@@ -5,7 +5,9 @@ services:
   #################
   umami-ws:
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-umami-ws'
-    image: ghcr.io/umami-software/umami:postgresql-latest
+    image: ghcr.io/edgebox-iot/apps/umami:1.0.0
+    build:  
+      context: "./"
     environment:
       VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
       VIRTUAL_PORT: 3000

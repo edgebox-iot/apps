@@ -4,7 +4,9 @@ services:
   # Uptime Kuma EdgeApp
   ##############
   uptimekuma-ws:
-    image: louislam/uptime-kuma:1
+    image: ghcr.io/edgebox-iot/apps/uptimekuma:1.0.0
+    build:  
+      context: "./"
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-uptimekuma-ws'
     environment:
       VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}

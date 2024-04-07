@@ -1,0 +1,1 @@
+FROM akhilrex/podgrab:1.0.0
