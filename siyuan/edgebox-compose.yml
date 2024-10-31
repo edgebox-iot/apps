@@ -1,0 +1,19 @@
+version: "3"
+services:
+  ##############
+  # Siyuan Web EdgeApp
+  ##############
+  siyuan-ws:
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-siyuan-ws'
+    image: ghcr.io/edgebox-iot/apps/siyuan:1.0.0
+    build:  
+      context: "./"
+    command: ['--workspace=/siyuan/workspace/', '--accessAuthCode=${SIYUAN_PASSWORD-siyuan}']
+    user: "0:0"
+    environment:
+      VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
+      VIRTUAL_PORT: 6806
+      TZ: Europe/Germany
+    volumes:
+      - ./appdata/siyuan-ws:/siyuan/workspace:rw
+    restart: unless-stopped
