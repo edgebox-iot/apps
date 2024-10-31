@@ -1,3 +1,3 @@
-FROM ghcr.io/immich-app/immich-server:v1.100.0
+FROM ghcr.io/immich-app/immich-server:v1.106.4
 
 EXPOSE 3001
