@@ -1,23 +1,20 @@
 version: "3"
+
 services:
   ##############
   # NextCloud EdgeApp
   ##############
   nextcloud-ws:
     image: ghcr.io/edgebox-iot/apps/nextcloud:1.0.0
-    build:  
+    build:
       context: "./"
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-nextcloud-ws'
-    links:
-      - nextcloud-db
+    depends_on:
+      nextcloud-db:
+        condition: service_healthy
     restart: unless-stopped
     volumes:
-      # - nextcloud:/var/www/html
-      - ${NEXTCLOUD_CONFIG-./appdata/ws/config}:/var/www/html/config
-      - ${NEXTCLOUD_CUSTOM_APPS_DIR-./appdata/ws/custom_apps}:/var/www/html/custom_apps
-      - ${NEXTCLOUD_APPDATA_DIR-./appdatai/ws/data/}:/var/www/html/data
-      - ${NEXTCLOUD_THEMES_DIR-./appdata/ws/themes}:/var/www/html/themes
-      - /etc/localtime:/etc/localtime:ro
+      - ./appdata/nextcloud-ws/var/www/html:/var/www/html:rw
     environment:
       VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
 
@@ -28,10 +25,16 @@ services:
     ports:
       - "${HOST_MACHINE_MYSQL_PORT-3307}:3306"
     volumes:
-      - ${MYSQL_DATA_DIR-./appdata/db/data/mysql}:/var/lib/mysql
-      - ${MYSQL_LOG_DIR-./appdata/db/log/mysql}:/var/log/mysql
+      - ./appdata/nextcloud-db/var/lib/mysql:/var/lib/mysql:rw
+      - ./appdata/nextcloud-db/var/log/mysql:/var/log/mysql:rw
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD-tiger}
       MYSQL_DATABASE: ${MYSQL_DATABASE-docker}
       MYSQL_USER: ${MYSQL_USER-docker}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD-docker}
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
