@@ -23,7 +23,7 @@ services:
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-nextcloud-db'
     restart: unless-stopped
     ports:
-      - "${HOST_MACHINE_MYSQL_PORT-3307}:3306"
+      - "3307:3306"
     volumes:
       - ./appdata/nextcloud-db/var/lib/mysql:/var/lib/mysql:rw
       - ./appdata/nextcloud-db/var/log/mysql:/var/log/mysql:rw
