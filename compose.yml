@@ -1,0 +1,13 @@
+version: "3"
+services:
+  ######################################
+  # Edgebox Web Service (Reverse Proxy)
+  ######################################
+  proxy:
+    image: nginxproxy/nginx-proxy:1.2.2
+    container_name: '${COMPOSE_PROJECT_NAME}-proxy'
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro

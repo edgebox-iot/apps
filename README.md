@@ -30,11 +30,25 @@ After running this command, You should have a `docker-compose.yml` file in the t
 The containers will also automatically start, and be available on the configured `VIRTUAL_HOST` of each app, given you've also setup all the necessary dependencies for `ws`.
 
 
-## Edgeapp Structure
+## Edgeapp Templates
 
-TBD
+ This repository also contains a set of edgeapp templates that can be used to scaffold new edgeapps. These templates are located in the `./.templates/` directory. A companion script `./.templates/bootstrap.sh` is provided to help you create a new edgeapp from a template.
 
-## Setting prod or dev app modes
+Run the following command to create your new app:
+```bash
+./.templates/bootstrap.sh <template-name> <app-slug> <app_name> <app-description> <has-options>
+```
 
-TBD
- 
+- `<template-name>`: The name of the template to use. This should be the name of a directory in the `./.templates/` directory. Current available templates are:
+  - `hello`: A simple edgeapp that demonstrates how to create an edgeapp that runs "Hello World" when accessed.
+- `<app-slug>`: The slug of the app. This will be used as the directory name for the new app. It should be a unique identifier for the app and only use the characters `a-z`, `0-9`, and `-`.
+- `<app_name>`: The name of the app. This will be used as the display name for the app. Example: `Syncthing`
+- `<app-description>`: A short description of the app. This will be used as the description for the app. Example: `Sync Filesystem`
+- `<has-options>`: A `yes` or `no` value indicating if the app has options. This will be used to determine if the app should have a configuration page in the dashboard. Default: `no`. If `yes`, it will include the necessary example configuration file in the new app.
+
+For example, to create a new app called `syncthing` from the `hello` template, you would run:
+```bash
+./.templates/bootstrap.sh hello syncthing Syncthing "Sync Filesystem" no
+```
+
+This will create a new app in the `./apps/` directory with the slug `syncthing` and the name `Syncthing` that uses the `hello` template as a base. You can then customize the app as needed (change the Dockerfile, add more services, environment variables, build and install assets, etc).
