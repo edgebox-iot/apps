@@ -13,6 +13,8 @@ Thumbs.db
 
 # Ignore all data inside "appdata" folder or any edgeapp.
 
+/appdata/*
+!/appdata/.gitkeep
 */appdata/*
 !*/appdata/.gitkeep
 myedgeapp.env
