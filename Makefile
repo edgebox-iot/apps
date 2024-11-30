@@ -40,28 +40,28 @@ install:
 
 # Bootstrap a new app based on a template
 app:
-	@./.scripts/bootstrap.sh "${template}" ${app_slug} ${app_name} ${app_description} ${has_options}
+	@./.scripts/bootstrap.sh "${template}" "${app_slug}" "${app_name}" "${app_description}" "${has_options}"
 
 bootstrap: app
 
 # Build an app locally:
 build:
-	@./.scripts/build.sh ${apps}
+	@./.scripts/build.sh "${apps}""
 
 # Clean an app locally:
 clean:
 	@echo "Cleaning ${apps}"
-	@./.scripts/clean.sh ${apps}
+	@./.scripts/clean.sh "${apps}"
 
 # Run an app locally:
 run:
-	@./.scripts/run.sh ${apps}
+	@./.scripts/run.sh "${apps}"
 
 start: run
 
 # Stop an app locally:
 stop:
-	@./.scripts/stop.sh ${services}
+	@./.scripts/stop.sh "${services}"
 
 status:
 	@./.scripts/status.sh
