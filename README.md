@@ -56,7 +56,7 @@ You can add environment variables to configure the local environeent by creating
 - `ACTIVE_APPS`: A space-separated list of app folder names to run by default. This allows you to use the make commands without having to pass any arguments. For example, `ACTIVE_APPS=umami gitea` will run the `umami`, `gitea` apps when you run `make run`, build them when you run `make build`, and stop them when you run `make stop`.
 - `HOST_PORT`: The port to run the apps on. This is useful if you want to run these apps on a specific port. For example, `HOST_PORT=8080` will run apps on port 8080. By default, apps run on port 80.
 
-### Using with edgebox-iot/ws
+## Using with edgebox-iot/ws
 
 This repository is not intended to be used standalone except for local edgeapps development. Instead, it is leveraged by the [ws repository](https://github.com/edgebox-iot/ws) to build and manage the application containers with a set of opinionated configurations and aligned features to host live. This predictability allows a working edgebox system to host all these apps with minimal to no configuration on the user side, while being reliable to run and maintain on a live configuration.
 
