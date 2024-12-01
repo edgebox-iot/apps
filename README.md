@@ -2,9 +2,10 @@
 # apps
 
 App package and container definitions (EdgeApps) for Edgebox.
-Curious about what the Edgebox is? Check out our [website](https://edgebox.io)!
 
-## Installation
+## Using with Edgebox
+
+> Curious about what the Edgebox is? Check out our [website](https://edgebox.io)! 🚀
 
 This repository should automatically be installed on the Edgebox system setup repository for the target Edgebox platform (`multipass-cofig`, `ua-netinst-config`, `image-builder`)
 In this case, it will be located in `/home/system/components/apps`.
@@ -49,31 +50,7 @@ make stop services="<service_name>"
 
 This will stop the specified service if you provide the `services` argument. Otherwise, it will stop all app services.
 
-### Environment Variables
-
-You can add environment variables to configure the local environeent by creating a `.env` file in the root of the app folder. This file should contain the environment variables you want to set, in the format `KEY=VALUE`. Check the `.env.example` file in the app folder for an example. Here's the list of environment variables you can set:
-
-- `ACTIVE_APPS`: A space-separated list of app folder names to run by default. This allows you to use the make commands without having to pass any arguments. For example, `ACTIVE_APPS=umami gitea` will run the `umami`, `gitea` apps when you run `make run`, build them when you run `make build`, and stop them when you run `make stop`.
-- `HOST_PORT`: The port to run the apps on. This is useful if you want to run these apps on a specific port. For example, `HOST_PORT=8080` will run apps on port 8080. By default, apps run on port 80.
-
-## Using with edgebox-iot/ws
-
-This repository is not intended to be used standalone except for local edgeapps development. Instead, it is leveraged by the [ws repository](https://github.com/edgebox-iot/ws) to build and manage the application containers with a set of opinionated configurations and aligned features to host live. This predictability allows a working edgebox system to host all these apps with minimal to no configuration on the user side, while being reliable to run and maintain on a live configuration.
-
-To run these apps, you need to run the following command at **the root of the [ws repository](https://github.com/edgebox-iot/ws)**.
-```bash
-$ ./ws -b
-```
-> To use WS to build these applications manually without a properly working Edgebox system (that includes the `api` and `edgeboxctl`), you need to manually set the desired environment and lock files for each app prior to starting the build process, otherwise it will not work as expected. Check below for more details on manual configuration of apps 👇
-
-This will go through each folder in the `/home/system/components/apps/` folder, and configure the containers for each valid app entry. 
-After running this command, You should have a `docker-compose.yml` file in the the root of the ws repository (it is git igored) with the final generated configuration which will then be used to spawn the containers via the `docker-compose up -d` command.
-The containers will also automatically start, and be available on the configured `VIRTUAL_HOST` of each app, given you've also setup all the necessary dependencies for `ws`.
-
-Check the [ws repository](https://github.com/edgebox-iot/ws) for more information on how `ws` works.
-
-
-## Edgeapp Templates
+### Edgeapp Templates
 
  This repository also contains a set of edgeapp templates that can be used to scaffold new edgeapps. These templates are located in the `./.templates/` directory. A companion script `./.templates/bootstrap.sh` is provided to help you create a new edgeapp from a template.
 
@@ -101,3 +78,26 @@ or
 ```
 
 This will create a new app in the `./apps/` directory with the slug `syncthing` and the name `Syncthing` that uses the `hello` (default) template as a base. You can then customize the app as needed (change the Dockerfile, add more services, environment variables, build and install assets, etc).
+
+### Environment Variables
+
+You can add environment variables to configure the local environeent by creating a `.env` file in the root of the app folder. This file should contain the environment variables you want to set, in the format `KEY=VALUE`. Check the `.env.example` file in the app folder for an example. Here's the list of environment variables you can set:
+
+- `ACTIVE_APPS`: A space-separated list of app folder names to run by default. This allows you to use the make commands without having to pass any arguments. For example, `ACTIVE_APPS=umami gitea` will run the `umami`, `gitea` apps when you run `make run`, build them when you run `make build`, and stop them when you run `make stop`.
+- `HOST_PORT`: The port to run the apps on. This is useful if you want to run these apps on a specific port. For example, `HOST_PORT=8080` will run apps on port 8080. By default, apps run on port 80.
+
+## Using with edgebox-iot/ws
+
+This repository is not intended to be used standalone except for local edgeapps development. Instead, it is leveraged by the [ws repository](https://github.com/edgebox-iot/ws) to build and manage the application containers with a set of opinionated configurations and aligned features to host live. This predictability allows a working edgebox system to host all these apps with minimal to no configuration on the user side, while being reliable to run and maintain on a live configuration.
+
+To run these apps, you need to run the following command at **the root of the [ws repository](https://github.com/edgebox-iot/ws)**.
+```bash
+$ ./ws -b
+```
+> To use WS to build these applications manually without a properly working Edgebox system (that includes the `api` and `edgeboxctl`), you need to manually set the desired environment and lock files for each app prior to starting the build process, otherwise it will not work as expected. Check below for more details on manual configuration of apps 👇
+
+This will go through each folder in the `/home/system/components/apps/` folder, and configure the containers for each valid app entry. 
+After running this command, You should have a `docker-compose.yml` file in the the root of the ws repository (it is git igored) with the final generated configuration which will then be used to spawn the containers via the `docker-compose up -d` command.
+The containers will also automatically start, and be available on the configured `VIRTUAL_HOST` of each app, given you've also setup all the necessary dependencies for `ws`.
+
+Check the [ws repository](https://github.com/edgebox-iot/ws) for more information on how `ws` works.
