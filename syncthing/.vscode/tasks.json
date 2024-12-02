@@ -1,0 +1,81 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "WS - Rebuild",
+            "type": "shell",
+            "command": "./ws",
+            "args": [
+                "-b"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/../../ws"
+            },
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "WS - Restart edgeapp containers",
+            "type": "shell",
+            "command": "docker-compose restart syncthing-ws",
+            "options": {
+                "cwd": "${workspaceFolder}/../../ws",
+                "shell": {
+                    "executable": "/bin/bash",
+                    "args": [
+                        "-c"
+                    ]
+                }
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "WS - All Edgeapp Statuses",
+            "type": "shell",
+            "command": "docker-compose ps",
+            "options": {
+                "cwd": "${workspaceFolder}/../../ws",
+                "shell": {
+                    "executable": "/bin/bash",
+                    "args": [
+                        "-c"
+                    ]
+                }
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "WS - Edgeapp Container Statuses",
+            "type": "shell",
+            "command": "docker-compose ps syncthing-ws",
+            "options": {
+                "cwd": "${workspaceFolder}/../../ws",
+                "shell": {
+                    "executable": "/bin/bash",
+                    "args": [
+                        "-c"
+                    ]
+                }
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "API - Update App Icon",
+            "type": "shell",
+            "command": "cp edgebox-icon.png ../../api/src/public/assets/img/edgeapps/syncthing.png && echo '🎨 App Icon Updated'",
+            "options": {
+                "cwd": "${workspaceFolder}/",
+                "shell": {
+                    "executable": "/bin/bash",
+                    "args": [
+                        "-c"
+                    ]
+                }
+            },
+            "problemMatcher": []
+        }
+    ]
+}
