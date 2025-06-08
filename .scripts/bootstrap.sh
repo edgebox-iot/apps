@@ -103,19 +103,19 @@ fi
 cp -r "./$template" "./../$app_slug"
 # In the new folder, do the replacements
 cd "./../$app_slug"
-if [ "$contains_options" == "no" ]; then
+if [ "$contains_options" = "no" ]; then
   rm -f "./edgeapp.template.env"
 fi
 
 echo "🚀 Bootstrapping $app_slug"
 
 # Replace all instances of exactly "hello" (case sensitive) with $app_slug in all text files
-find . -type f -exec grep -Iq . {} \; -and -exec sed -i '' "s/$template_app_slug/$app_slug/g" {} +
+find . -type f -exec grep -Iq . {} \; -and -exec sed -i "s/$template_app_slug/$app_slug/g" {} +
 
 # Replace all instances of exactly "Hello World" (case sensitive) with $app_name in all text files
-find . -type f -exec grep -Iq . {} \; -and -exec sed -i '' "s/$template_app_name/$app_name/g" {} +
+find . -type f -exec grep -Iq . {} \; -and -exec sed -i "s/$template_app_name/$app_name/g" {} +
 
 # Replace all instances of exactly "EdgeApp Template" (case sensitive) with $app_description in all text files
-find . -type f -exec grep -Iq . {} \; -and -exec sed -i '' "s/$template_app_description/$app_description/g" {} +
+find . -type f -exec grep -Iq . {} \; -and -exec sed -i "s/$template_app_description/$app_description/g" {} +
 
 echo "🟢 Bootstrap complete."
