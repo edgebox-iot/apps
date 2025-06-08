@@ -1,0 +1,33 @@
+version: "3"
+services:
+  ##############
+  # Paperless-ngx EdgeApp
+  ##############
+  paperlessngx-ws:
+    image: ghcr.io/edgebox-iot/apps/paperlessngx:1.0.0
+    build:  
+      context: "./"
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-paperlessngx-ws'
+    environment:
+      VIRTUAL_HOST: paperlessngx.jpt.land
+      VIRTUAL_PORT: 8000
+      PAPERLESS_URL: https://paperlessngx.jpt.land
+      PAPERLESS_BIND_ADDR: 0.0.0.0
+      PAPERLESS_REDIS: redis://paperlessngx-redis:6379
+      PAPERLESS_SECRET_KEY: 3pQvaXlvQtbKUOJnChVt2RT4IfUREqKz
+      PAPERLESS_TIME_ZONE: Europe/Berlin
+      PAPERLESS_OCR_LANGUAGE: deu
+    volumes:
+      - ./appdata/paperlessngx-ws/data:/usr/src/paperless/data:rw
+      - ./appdata/paperlessngx-ws/media:/usr/src/paperless/media:rw
+      - ./appdata/paperlessngx-ws/export:/usr/src/paperless/export:rw
+      - ./appdata/paperlessngx-ws/consume:/usr/src/paperless/consume:rw
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+
+  paperlessngx-redis:
+    image: docker.io/library/redis:7
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-paperlessngx-redis'
+    restart: unless-stopped
+    volumes:
+      - ./appdata/paperlessngx-redis:/data:rw
