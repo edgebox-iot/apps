@@ -1,7 +1,11 @@
 {
   "gateway": {
     "port": 18789,
-    "mode": "local"
+    "mode": "local",
+    "bind": "lan",
+    "auth": {
+      "token": "clawd-default-token"
+    }
   },
   "agents": {
     "defaults": {
