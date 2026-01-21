@@ -1,41 +1,26 @@
 {
   "gateway": {
     "port": 18789,
-    "bind": "0.0.0.0",
-    "canvasHost": {
-      "port": 18793,
-      "bind": "0.0.0.0"
-    }
+    "mode": "local"
   },
   "agents": {
     "defaults": {
       "workspace": "/home/system/components/clawd/data/clawd",
       "models": {
         "anthropic/claude-opus-4-5": { "alias": "opus" },
-        "anthropic/claude-sonnet-4-5": { "alias": "sonnet" },
-        "openai/gpt-5.2": { "alias": "gpt" }
+        "anthropic/claude-sonnet-4-5": { "alias": "sonnet" }
       },
       "model": {
         "primary": "anthropic/claude-opus-4-5"
-      },
-      "thinkingDefault": "low",
-      "timeoutSeconds": 600
+      }
     }
   },
   "channels": {
     "telegram": {
-      "enabled": true,
-      "botToken": "${TELEGRAM_BOT_TOKEN}"
+      "enabled": false
     },
     "discord": {
-      "enabled": true,
-      "token": "${DISCORD_BOT_TOKEN}"
-    },
-    "whatsapp": {
-      "enabled": true
+      "enabled": false
     }
-  },
-  "messages": {
-    "responsePrefix": "[Clawd]"
   }
 }

@@ -30,8 +30,8 @@ echo "[Clawdbot] Canvas host on 0.0.0.0:18793"
 echo ""
 
 # Start Clawdbot gateway
-# Bind to 0.0.0.0 to accept LAN/tailnet connections
-# Can be configured via CLAWDBOT_GATEWAY_TOKEN for security
+# Use 'lan' binding for LAN access with --allow-unconfigured for testing
 exec clawdbot gateway \
     --port 18789 \
-    --bind 0.0.0.0
+    --bind lan \
+    --allow-unconfigured
