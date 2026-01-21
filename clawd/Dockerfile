@@ -31,17 +31,18 @@ RUN mkdir -p \
     /home/system/components/clawd/data/clawd && \
     chown -R clawdbot:clawdbot /home/system/components/clawd /home/clawdbot
 
-# Copy entrypoint script and config template BEFORE installing clawdbot
+# Install Clawdbot as root first (npm install works better)
+RUN npm install -g clawdbot@latest
+
+# Copy scripts and config template
 COPY --chown=clawdbot:clawdbot ./entrypoint.sh /app/entrypoint.sh
-RUN chmod +x /app/entrypoint.sh && chown clawdbot /app
+COPY --chown=clawdbot:clawdbot ./init-clawdbot.sh /app/init-clawdbot.sh
+RUN chmod +x /app/entrypoint.sh /app/init-clawdbot.sh && chown clawdbot /app
 
 COPY --chown=clawdbot:clawdbot ./clawdbot.json.template /app/clawdbot.json.template
 
-# Switch to app user for npm install
+# Switch to app user for runtime
 USER clawdbot
-
-# Clear npm cache and install Clawdbot fresh
-RUN npm cache clean --force && npm install -g clawdbot@latest
 
 # Expose ports
 EXPOSE 18789 18790 18793 80

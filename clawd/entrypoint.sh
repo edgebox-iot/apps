@@ -19,6 +19,9 @@ else
     echo "[Clawdbot] Using existing configuration"
 fi
 
+# Initialize agent with env var defaults (idempotent)
+/app/init-clawdbot.sh
+
 # Ensure auth-profiles directory
 mkdir -p /home/system/components/clawd/data/.clawdbot/agents/main/agent
 
@@ -30,8 +33,5 @@ echo "[Clawdbot] Canvas host on 0.0.0.0:18793"
 echo ""
 
 # Start Clawdbot gateway
-# Use 'lan' binding for LAN access with --allow-unconfigured for testing
-exec clawdbot gateway \
-    --port 18789 \
-    --bind lan \
-    --allow-unconfigured
+# Gateway configuration is in clawdbot.json
+exec clawdbot gateway --port 18789
