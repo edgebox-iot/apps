@@ -1,0 +1,21 @@
+version: "3"
+services:
+  ##############
+  # Campfire EdgeApp
+  ##############
+  campfire-ws:
+    image: ghcr.io/edgebox-iot/apps/campfire:1.0.0
+    build:
+      context: "./"
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-campfire-ws'
+    environment:
+      VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
+      VIRTUAL_PORT: 80
+      DISABLE_SSL: "true"
+      SECRET_KEY_BASE: '${CAMPFIRE_SECRET_KEY_BASE}'
+      VAPID_PUBLIC_KEY: '${CAMPFIRE_VAPID_PUBLIC_KEY}'
+      VAPID_PRIVATE_KEY: '${CAMPFIRE_VAPID_PRIVATE_KEY}'
+    volumes:
+      - ./appdata/storage:/rails/storage:rw
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
