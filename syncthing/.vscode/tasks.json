@@ -20,7 +20,7 @@
         {
             "label": "WS - Restart edgeapp containers",
             "type": "shell",
-            "command": "docker-compose restart syncthing-ws",
+            "command": "docker compose restart syncthing-ws",
             "options": {
                 "cwd": "${workspaceFolder}/../../ws",
                 "shell": {
@@ -35,7 +35,7 @@
         {
             "label": "WS - All Edgeapp Statuses",
             "type": "shell",
-            "command": "docker-compose ps",
+            "command": "docker compose ps",
             "options": {
                 "cwd": "${workspaceFolder}/../../ws",
                 "shell": {
@@ -50,7 +50,7 @@
         {
             "label": "WS - Edgeapp Container Statuses",
             "type": "shell",
-            "command": "docker-compose ps syncthing-ws",
+            "command": "docker compose ps syncthing-ws",
             "options": {
                 "cwd": "${workspaceFolder}/../../ws",
                 "shell": {

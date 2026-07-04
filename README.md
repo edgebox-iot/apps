@@ -97,7 +97,7 @@ $ ./ws -b
 > To use WS to build these applications manually without a properly working Edgebox system (that includes the `api` and `edgeboxctl`), you need to manually set the desired environment and lock files for each app prior to starting the build process, otherwise it will not work as expected. Check below for more details on manual configuration of apps 👇
 
 This will go through each folder in the `/home/system/components/apps/` folder, and configure the containers for each valid app entry. 
-After running this command, You should have a `docker-compose.yml` file in the the root of the ws repository (it is git igored) with the final generated configuration which will then be used to spawn the containers via the `docker-compose up -d` command.
+After running this command, You should have a `docker-compose.yml` file in the the root of the ws repository (it is git igored) with the final generated configuration which will then be used to spawn the containers via the `docker compose up -d` command.
 The containers will also automatically start, and be available on the configured `VIRTUAL_HOST` of each app, given you've also setup all the necessary dependencies for `ws`.
 
 Check the [ws repository](https://github.com/edgebox-iot/ws) for more information on how `ws` works.

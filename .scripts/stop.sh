@@ -22,7 +22,7 @@ if [ -z "$SERVICES_TO_STOP" ]; then
 else
     echo "✋ Stopping local edgeapp services: $SERVICES_TO_STOP"
 fi
-# For each active app, add a `-f <app>/edgebox-compose.yml` argument to the `docker-compose` command
+# For each active app, add a `-f <app>/edgebox-compose.yml` argument to the `docker compose` command
 DOCKER_COMPOSE_ARGS="$DOCKER_COMPOSE_ARGS -f compose.yml"
 
 for app in $ACTIVE_APPS; do
@@ -31,7 +31,7 @@ done
 
 echo ""
 
-# Docker-compose should stop $active_app-* containers for each active app
-docker-compose $DOCKER_COMPOSE_ARGS down $SERVICES_TO_STOP
+# Docker compose should stop $active_app-* containers for each active app
+docker compose $DOCKER_COMPOSE_ARGS down $SERVICES_TO_STOP
 
 echo "\n🟢 Operations completed."
