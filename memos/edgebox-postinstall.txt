@@ -1,0 +1,4 @@
+# Postinstall commands for Memos
+# Each line represents a docker exec command to run on the container
+# Format: -T <container_name> <command>
+-T memos-ws echo "Memos container started successfully"

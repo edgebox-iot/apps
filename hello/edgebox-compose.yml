@@ -1,0 +1,26 @@
+version: "3"
+services:
+  ##############
+  # Hello World EdgeApp
+  ##############
+  hello-ws:
+    image: ghcr.io/edgebox-iot/apps/${COMPOSE_APP_SLUG-hello}:1.0.0
+    build:  
+      context: "./"
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-${COMPOSE_APP_SLUG-hello}-ws'
+    restart: unless-stopped
+    environment:
+      # WS Proxy control varialbles - Do not change
+      VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
+      # Overridable variables (optional)
+      # VIRTUAL_PORT: 80
+      # VIRTUAL_PROTO: https
+      # VIRTUAL_PATH: /
+      # VIRTUAL_DEST: /
+
+    volumes:
+      # Recommended defaults
+      - /etc/localtime:/etc/localtime:ro
+      # Host data volume (Modify as needed by the app)
+      - ./appdata/${COMPOSE_APP_SLUG-hello}-ws:/usr/share/nginx/html/:rw
+
