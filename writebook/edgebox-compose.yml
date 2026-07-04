@@ -12,6 +12,7 @@ services:
       VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
       VIRTUAL_PORT: 80
       DISABLE_SSL: "true"
+      SECRET_KEY_BASE: "dee2c3de6b349d6046a0281e8b4117f83fae585939ff524f505c2573a21f1aeb37f0d238d1cc7e210539f58178e45a5e3c65c25e1b24f488c3e98bd6ae9b707d"
     volumes:
       - ./appdata/storage:/rails/storage:rw
       - /etc/localtime:/etc/localtime:ro
