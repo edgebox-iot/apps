@@ -1,7 +1,7 @@
 version: '3'
 services:
   actual-ws:
-    image: ghcr.io/edgebox-iot/apps/actual:1.0.0
+    image: ghcr.io/edgebox-iot/apps/actual:1.0.1
     build:  
       context: "./"
     # ports:
