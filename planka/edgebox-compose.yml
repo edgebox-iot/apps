@@ -2,7 +2,7 @@ version: "3"
 services:
   planka-ws:
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-planka-ws'
-    image: ghcr.io/edgebox-iot/apps/planka:1.0.0
+    image: ghcr.io/edgebox-iot/apps/planka:1.0.1
     build:  
       context: "./"
     command: ["./start.sh"] # Can this be part of the Dockerfile?
@@ -13,6 +13,7 @@ services:
       - ./appdata/ws/app/private/attachments:/app/private/attachments:rw
     environment:
       VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
+      VIRTUAL_PORT: 1337
       BASE_URL: https://${MAIN_URL}
       TRUST_PROXY: 0
       DATABASE_URL: postgresql://postgres@planka-db/planka
