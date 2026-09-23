@@ -1,3 +1,3 @@
-FROM traggo/server:0.4.4
+FROM traggo/server:0.8.3
 
 EXPOSE 80
