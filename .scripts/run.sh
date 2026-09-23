@@ -16,7 +16,7 @@ if [ -n "$1" ]; then
     ACTIVE_APPS=$1
 fi
 
-# For each active app, add a `-f <app>/edgebox-compose.yml` argument to the `docker-compose` command
+# For each active app, add a `-f <app>/edgebox-compose.yml` argument to the `docker compose` command
 DOCKER_COMPOSE_ARGS="$DOCKER_COMPOSE_ARGS -f compose.yml"
 PUBLISH_DOMAINS="false"
 hosts_file_content=""
@@ -80,8 +80,8 @@ if [ "$PUBLISH_DOMAINS" = "false" ]; then
 fi
 
 echo "🐳 Setting up Containers:\n"
-# I want to put a - in front of the first line of output from docker-compose
-docker-compose $DOCKER_COMPOSE_ARGS up -d --remove-orphans
+# I want to put a - in front of the first line of output from docker compose
+docker compose $DOCKER_COMPOSE_ARGS up -d --remove-orphans
 echo ""
 
 # Unpack the domains list as \n - separated string

@@ -20,7 +20,7 @@ fi
 
 echo "🏗️  Preparing to build edgeapps: $ACTIVE_APPS"
 
-# For each active app, add a `-f <app>/edgebox-compose.yml` argument to the `docker-compose` command
+# For each active app, add a `-f <app>/edgebox-compose.yml` argument to the `docker compose` command
 for app in $ACTIVE_APPS; do
     DOCKER_COMPOSE_ARGS="$DOCKER_COMPOSE_ARGS -f $app/edgebox-compose.yml"
 done
@@ -29,6 +29,6 @@ DOCKER_COMPOSE_ARGS="$DOCKER_COMPOSE_ARGS -f compose.yml"
 
 echo "🐳  Building operations:"
 echo ""
-docker-compose $DOCKER_COMPOSE_ARGS build
+docker compose $DOCKER_COMPOSE_ARGS build
 
 echo "\n🟢  Operations completed."

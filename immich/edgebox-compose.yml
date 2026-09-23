@@ -5,13 +5,13 @@ services:
   ##############
   immich-ws:
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-immich-ws'
-    image: ghcr.io/edgebox-iot/apps/immich:1.0.0
+    image: ghcr.io/edgebox-iot/apps/immich:1.0.2
     build:  
       context: "./"
     environment:
       VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
       UPLOAD_LOCATION: ./appdata/immich-ws
-      IMMICH_VERSION: v1.119.1
+      IMMICH_VERSION: v3.1.0
       DB_PASSWORD: postgres
       DB_HOSTNAME: immich-db
       DB_USERNAME: postgres
@@ -29,7 +29,7 @@ services:
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-immich-machine-learning'
     # For hardware acceleration, add one of -[armnn, cuda, openvino] to the image tag.
     # Example tag: ${IMMICH_VERSION:-release}-cuda
-    image: ghcr.io/immich-app/immich-machine-learning:v1.100.0
+    image: ghcr.io/immich-app/immich-machine-learning:v3.1.0
     # extends: # uncomment this section for hardware acceleration - see https://immich.app/docs/features/ml-hardware-acceleration
     #   file: hwaccel.ml.yml
     #   service: cpu # set to one of [armnn, cuda, openvino, openvino-wsl] for accelerated inference - use the `-wsl` version for WSL2 where applicable
@@ -37,7 +37,7 @@ services:
       - ./appdata/immich-machine-learning:/cache:rw
     environment:
       UPLOAD_LOCATION: ./appdata/immich-ws
-      IMMICH_VERSION: v1.100.0
+      IMMICH_VERSION: v3.1.0
       DB_HOSTNAME: immich-db
       DB_DATABASE_NAME: immich
       DB_USERNAME: postgres
@@ -50,14 +50,14 @@ services:
 
   immich-redis:
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-immich-redis'
-    image: registry.hub.docker.com/library/redis:6.2-alpine@sha256:51d6c56749a4243096327e3fb964a48ed92254357108449cb6e23999c37773c5
+    image: docker.io/valkey/valkey:9@sha256:8e8d64b405ce18f41b8e5ee20aa4687a8ed0022d1298f2ce31cdcf3a76e09411
     restart: unless-stopped
     volumes:
       - ./appdata/immich-redis:/data:rw
     
   immich-db:
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-immich-db'
-    image: registry.hub.docker.com/tensorchord/pgvecto-rs:pg14-v0.2.0@sha256:90724186f0a3517cf6914295b5ab410db9ce23190a2d9d0b9dd6463e3fa298f0
+    image: ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0@sha256:bcf63357191b76a916ae5eb93464d65c07511da41e3bf7a8416db519b40b1c23
     environment:
       POSTGRES_DB: immich
       POSTGRES_USER: postgres
@@ -65,4 +65,3 @@ services:
     restart: unless-stopped
     volumes:
       - ./appdata/immich-db:/var/lib/postgresql/data:rw
-

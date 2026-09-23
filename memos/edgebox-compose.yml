@@ -1,0 +1,21 @@
+version: "3"
+services:
+  ##############
+  # Memos EdgeApp
+  ##############
+  memos-ws:
+    image: neosmemo/memos:stable
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-${COMPOSE_APP_SLUG-memos}-ws'
+    restart: unless-stopped
+    environment:
+      # WS Proxy control variables - Do not change
+      VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
+      VIRTUAL_PORT: 5230
+      # Memos configuration
+      MEMOS_MODE: prod
+      MEMOS_PORT: 5230
+    volumes:
+      # Recommended defaults
+      - /etc/localtime:/etc/localtime:ro
+      # Host data volume for memos data
+      - ./appdata/${COMPOSE_APP_SLUG-memos}-ws:/var/opt/memos:rw

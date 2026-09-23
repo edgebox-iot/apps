@@ -1,3 +1,3 @@
-FROM vaultwarden/server:1.34.1
+FROM vaultwarden/server:1.37.2
 
 EXPOSE 80

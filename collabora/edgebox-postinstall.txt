@@ -1,0 +1,1 @@
+-T collabora-ws pwd
