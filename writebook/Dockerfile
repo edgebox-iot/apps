@@ -1,4 +1,4 @@
-FROM ghcr.io/basecamp/writebook:latest
+FROM ghcr.io/basecamp/writebook:1.2.2
 LABEL org.opencontainers.image.description="Writebook is an easy-to-use application for publishing content on the web."
 
 USER root
