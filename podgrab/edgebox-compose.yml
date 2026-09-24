@@ -4,7 +4,7 @@ services:
   # Podgrag Web EdgeApp
   ##############
   podgrab-ws:
-    image: ghcr.io/edgebox-iot/apps/podgrab:1.0.0
+    image: ghcr.io/edgebox-iot/apps/podgrab:1.0.1
     build:  
       context: "./"
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-podgrab-ws'
@@ -12,6 +12,7 @@ services:
       CHECK_FREQUENCY: 30
       PASSWORD: '${PODGRAB_PASSWORD-mypodcasts}'
       VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
+      VIRTUAL_PORT: 8080
       PUID: 1000
       PGID: 1000
       TZ: Europe/London

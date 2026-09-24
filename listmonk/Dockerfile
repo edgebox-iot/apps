@@ -1,1 +1,1 @@
-FROM listmonk/listmonk:v3.0.0
+FROM listmonk/listmonk:v6.2.0

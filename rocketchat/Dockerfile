@@ -1,1 +1,1 @@
-FROM registry.rocket.chat/rocketchat/rocket.chat:latest
+FROM registry.rocket.chat/rocketchat/rocket.chat:7.13.9

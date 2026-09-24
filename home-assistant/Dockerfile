@@ -1,3 +1,3 @@
-FROM homeassistant/home-assistant:2024.4.0
+FROM homeassistant/home-assistant:2026.9.3
 
 EXPOSE 8123

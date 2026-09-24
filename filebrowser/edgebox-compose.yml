@@ -4,13 +4,15 @@ services:
   # Filebrowser EdgeApp
   ##############
   filebrowser-ws:
-    image: ghcr.io/edgebox-iot/apps/filebrowser:1.0.0
+    image: ghcr.io/edgebox-iot/apps/filebrowser:1.0.1
     build:  
       context: "./"
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-filebrowser-ws'
     environment:
       VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
+    command: ["-d", "/data/database.db"]
     volumes:
       - ../..:/srv
+      - ./appdata/filebrowser-ws:/data:rw
       - /etc/localtime:/etc/localtime:ro
-    restart: unless-stopped 
+    restart: unless-stopped

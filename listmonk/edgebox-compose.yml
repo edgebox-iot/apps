@@ -1,7 +1,7 @@
 version: "3"
 services:
   listmonk-ws:
-    image: ghcr.io/edgebox-iot/apps/listmonk:1.0.0
+    image: ghcr.io/edgebox-iot/apps/listmonk:1.0.1
     build:  
       context: "./"
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-listmonk-ws'

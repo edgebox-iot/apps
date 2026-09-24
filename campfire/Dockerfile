@@ -1,4 +1,4 @@
-FROM ghcr.io/basecamp/once-campfire:latest
+FROM ghcr.io/basecamp/once-campfire:1.4.9
 LABEL org.opencontainers.image.description="Campfire is a simple, self-hosted team chat application."
 
 # Fix CSRF origin check when behind SSL-terminating proxy:

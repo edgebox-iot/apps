@@ -4,15 +4,19 @@ services:
   # Jupyter EdgeApp
   ##############
   jupyter-ws:
-    image: andresvidal/jupyter-armv7l
+    image: quay.io/jupyter/base-notebook:2026-08-17
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-jupyter-ws'
+    user: root
     environment:
       VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
       VIRTUAL_PORT: 8888
+      JUPYTER_TOKEN: ${JUPYTER_TOKEN-}
       JUPYTER_ENABLE_LAB: "yes"
+      CHOWN_HOME: "yes"
+      CHOWN_HOME_OPTS: "-R"
+      NB_USER: jovyan
     volumes:
-      - ./appdata/ws/notebooks:/notebooks/jupyter:rw
+      - ./appdata/ws/notebooks:/home/jovyan/work:rw
       - /etc/localtime:/etc/localtime:ro
-    command: ["jupyter", "notebook", "--ip=*", "--allow-root", "--no-browser", "--NotebookApp.token='${JUPYTER_TOKEN-}'", "--NotebookApp.password='${JUPYTER_PASSWORD-}'", "--NotebookApp.allow_origin='*'"]
     restart: unless-stopped
     

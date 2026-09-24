@@ -1,1 +1,1 @@
-FROM webrcade/webrcade:0.1.5
+FROM webrcade/webrcade:0.2.3

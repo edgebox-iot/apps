@@ -4,7 +4,7 @@ services:
   #################
   umami-ws:
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-umami-ws'
-    image: ghcr.io/edgebox-iot/apps/umami:1.0.0
+    image: ghcr.io/edgebox-iot/apps/umami:1.0.1
     build:  
       context: "./"
     environment:

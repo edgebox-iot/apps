@@ -1,3 +1,3 @@
-FROM ghcr.io/plankanban/planka:1.16.2
+FROM ghcr.io/plankanban/planka:2.2.1
 
 EXPOSE 3000

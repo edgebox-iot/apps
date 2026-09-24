@@ -5,7 +5,7 @@ services:
   ##############
   openwebui-ws:
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-openwebui-ws'
-    image: ghcr.io/edgebox-iot/apps/openwebui:1.0.0
+    image: ghcr.io/edgebox-iot/apps/openwebui:1.0.1
     build:  
       context: "./"
     user: "0:0"

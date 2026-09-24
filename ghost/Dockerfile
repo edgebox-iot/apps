@@ -1,3 +1,3 @@
-FROM ghost:5.81.1
+FROM ghost:6.64.0
 
 EXPOSE 2368

@@ -1,3 +1,3 @@
-FROM lscr.io/linuxserver/jellyfin:10.8.13
+FROM lscr.io/linuxserver/jellyfin:10.11.11
 
 EXPOSE 8096
