@@ -5,13 +5,13 @@ services:
   ##############
   immich-ws:
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-immich-ws'
-    image: ghcr.io/edgebox-iot/apps/immich:1.0.2
+    image: ghcr.io/edgebox-iot/apps/immich:1.0.3
     build:  
       context: "./"
     environment:
       VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
       UPLOAD_LOCATION: ./appdata/immich-ws
-      IMMICH_VERSION: v3.1.0
+      IMMICH_VERSION: v3.2.2
       DB_PASSWORD: postgres
       DB_HOSTNAME: immich-db
       DB_USERNAME: postgres
@@ -29,7 +29,7 @@ services:
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-immich-machine-learning'
     # For hardware acceleration, add one of -[armnn, cuda, openvino] to the image tag.
     # Example tag: ${IMMICH_VERSION:-release}-cuda
-    image: ghcr.io/immich-app/immich-machine-learning:v3.1.0
+    image: ghcr.io/immich-app/immich-machine-learning:v3.2.2
     # extends: # uncomment this section for hardware acceleration - see https://immich.app/docs/features/ml-hardware-acceleration
     #   file: hwaccel.ml.yml
     #   service: cpu # set to one of [armnn, cuda, openvino, openvino-wsl] for accelerated inference - use the `-wsl` version for WSL2 where applicable
@@ -37,7 +37,7 @@ services:
       - ./appdata/immich-machine-learning:/cache:rw
     environment:
       UPLOAD_LOCATION: ./appdata/immich-ws
-      IMMICH_VERSION: v3.1.0
+      IMMICH_VERSION: v3.2.2
       DB_HOSTNAME: immich-db
       DB_DATABASE_NAME: immich
       DB_USERNAME: postgres
