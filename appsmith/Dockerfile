@@ -1,3 +1,3 @@
-FROM appsmith/appsmith-ee:v1.19
+FROM appsmith/appsmith-ee:v2.3
 
 EXPOSE 80
