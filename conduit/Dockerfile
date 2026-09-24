@@ -1,3 +1,3 @@
-FROM matrixconduit/matrix-conduit:dc23206e27396348bcac729d97c0dacbd01190ae
+FROM matrixconduit/matrix-conduit:v0.10.13
 
 EXPOSE 6167
