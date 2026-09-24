@@ -4,7 +4,7 @@ services:
   # n8n EdgeApp
   ##############
   n8n-ws:
-    image: ghcr.io/edgebox-iot/apps/n8n:1.0.0
+    image: ghcr.io/edgebox-iot/apps/n8n:1.0.1
     build:  
       context: "./"
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-n8n-ws'
