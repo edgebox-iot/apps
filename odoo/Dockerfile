@@ -1,3 +1,3 @@
-FROM odoo:17.0
+FROM odoo:19.0
 
 EXPOSE 8069

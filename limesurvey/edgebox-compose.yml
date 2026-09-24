@@ -1,7 +1,7 @@
 version: "3"
 services:
   limesurvey-ws:
-    image: ghcr.io/edgebox-iot/apps/jellyfin:1.0.0
+    image: ghcr.io/edgebox-iot/apps/limesurvey:1.0.1
     build:  
       context: "./"
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-limesurvey-ws'
@@ -21,12 +21,12 @@ services:
   
   limesurvey-db:
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-limesurvey-db'
-    image: docker.io/mysql:5.7
+    image: docker.io/mysql:8.0
     environment:
       - MYSQL_USER=limesurvey
       - MYSQL_DATABASE=limesurvey
       - MYSQL_PASSWORD=limesurvey
       - MYSQL_ROOT_PASSWORD=limesurvey
     volumes:
-      - ./appdata/listmonk-db/data:/var/lib/postgresql/data:rw
+      - ./appdata/limesurvey-db/data:/var/lib/mysql:rw
     restart: unless-stopped
