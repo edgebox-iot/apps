@@ -12,7 +12,7 @@ services:
     volumes:
     - ./appdata/db/var/lib/postgresql/data:/var/lib/postgresql/data:rw
   tandoor-ws:
-    image: ghcr.io/edgebox-iot/apps/tandoor:1.0.0
+    image: ghcr.io/edgebox-iot/apps/tandoor:1.0.1
     build:
       context: "./"
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-tandoor-ws'
@@ -21,6 +21,7 @@ services:
         condition: service_started
     environment:
       VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
+      ALLOWED_HOSTS: ${LOCAL_URL}${INTERNET_URL}
       DB_ENGINE: django.db.backends.postgresql
       POSTGRES_DB: djangodb
       POSTGRES_HOST: tandoor-db
@@ -28,7 +29,6 @@ services:
       POSTGRES_PORT: 5432
       POSTGRES_USER: djangodb
       SECRET_KEY: tandoor
-      VIRTUAL_HOST: tandoor.jptbox.local
     restart: unless-stopped
     volumes:
     - ./appdata/ws/opt/recipes/staticfiles:/opt/recipes/staticfiles:rw
