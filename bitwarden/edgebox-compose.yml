@@ -4,7 +4,7 @@ services:
   # Bitwarden EdgeApp
   ##############
   bitwarden-ws:
-    image: ghcr.io/edgebox-iot/apps/bitwarden:1.0.1
+    image: ghcr.io/edgebox-iot/apps/bitwarden:1.0.2
     build:  
       context: "./"
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-bitwarden-ws'
