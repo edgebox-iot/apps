@@ -4,7 +4,7 @@ services:
   # Jellyfin EdgeApp
   ##############
   jellyfin-ws:
-    image: ghcr.io/edgebox-iot/apps/jellyfin:1.0.0
+    image: ghcr.io/edgebox-iot/apps/jellyfin:1.0.1
     build:  
       context: "./"
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-jellyfin-ws'
