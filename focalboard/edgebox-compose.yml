@@ -4,16 +4,16 @@ services:
   # Focalboard Web EdgeApp
   ##############
   focalboard-ws:
-    image: ghcr.io/edgebox-iot/apps/focalboard:1.0.0
+    image: ghcr.io/edgebox-iot/apps/focalboard:1.0.1
     build:  
       context: "./"
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-focalboard-ws'
     environment:
       VIRTUAL_HOST: ${LOCAL_URL}${INTERNET_URL}
+      VIRTUAL_PORT: 8000
       PUID: 1000
       PGID: 1000
       TZ: Europe/London
     volumes:
-    - ./appdata/ws/apt/focalboard/config.json:/opt/focalboard/config.json
     - ./appdata/ws/var/lib/focalboard:/var/lib/focalboard
     restart: unless-stopped
