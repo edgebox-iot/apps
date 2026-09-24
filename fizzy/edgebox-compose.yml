@@ -4,7 +4,7 @@ services:
   # Fizzy EdgeApp
   ##############
   fizzy-ws:
-    image: ghcr.io/edgebox-iot/apps/fizzy:1.0.0
+    image: ghcr.io/edgebox-iot/apps/fizzy:1.0.1
     build:
       context: "./"
     container_name: '${COMPOSE_PROJECT_NAME-edgebox}-fizzy-ws'
