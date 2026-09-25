@@ -1,0 +1,71 @@
+services:
+  ##############
+  # Clawdbot AI Agent Gateway
+  ##############
+  clawd-ws:
+    image: ghcr.io/edgebox-iot/apps/${COMPOSE_APP_SLUG-clawd}:1.0.0
+    build:  
+      context: "./"
+    container_name: '${COMPOSE_PROJECT_NAME-edgebox}-${COMPOSE_APP_SLUG-clawd}-ws'
+    restart: unless-stopped
+    environment:
+      # Traefik reverse proxy variables
+      VIRTUAL_HOST: ${LOCAL_URL-clawd.local}${INTERNET_URL-}
+      VIRTUAL_PORT: 80
+      
+      # Clawdbot configuration paths
+      CLAWDBOT_WORKSPACE: ${CLAWDBOT_WORKSPACE-/home/system/components/clawd/data/clawd}
+      CLAWDBOT_STATE_DIR: ${CLAWDBOT_STATE_DIR-/home/system/components/clawd/data/.clawdbot}
+      CLAWDBOT_CONFIG_PATH: ${CLAWDBOT_CONFIG_PATH-/home/system/components/clawd/config/clawdbot.json}
+      
+      # Gateway token for remote access
+      CLAWDBOT_GATEWAY_TOKEN: ${CLAWDBOT_GATEWAY_TOKEN}
+      
+      # Channel credentials
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
+      DISCORD_BOT_TOKEN: ${DISCORD_BOT_TOKEN}
+      
+      # Node environment
+      NODE_ENV: production
+      NODE_OPTIONS: --max-old-space-size=1024
+
+    volumes:
+      # System time (read-only)
+      - /etc/localtime:/etc/localtime:ro
+      # Config directory (persistent)
+      - ./appdata/${COMPOSE_APP_SLUG-clawd}-config:/home/system/components/clawd/config:rw
+      # Data directory (persistent state, auth profiles, workspace)
+      - ./appdata/${COMPOSE_APP_SLUG-clawd}-data:/home/system/components/clawd/data:rw
+    
+    # Expose all necessary ports
+    ports:
+      # Gateway WebSocket
+      - "18789:18789"
+      # Bridge for node pairing (LAN/Tailnet)
+      - "18790:18790"
+      # Canvas host (WebView assets)
+      - "18793:18793"
+    
+    # Network settings (traefik optional for dev)
+    networks:
+      default: null
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:18789/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    
+    # Logging
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "5"
+
+networks:
+  default:
+    driver: bridge
+

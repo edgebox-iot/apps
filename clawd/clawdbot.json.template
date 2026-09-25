@@ -1,0 +1,30 @@
+{
+  "gateway": {
+    "port": 18789,
+    "mode": "local",
+    "bind": "lan",
+    "auth": {
+      "token": "clawd-default-token"
+    }
+  },
+  "agents": {
+    "defaults": {
+      "workspace": "/home/system/components/clawd/data/clawd",
+      "models": {
+        "anthropic/claude-opus-4-5": { "alias": "opus" },
+        "anthropic/claude-sonnet-4-5": { "alias": "sonnet" }
+      },
+      "model": {
+        "primary": "anthropic/claude-opus-4-5"
+      }
+    }
+  },
+  "channels": {
+    "telegram": {
+      "enabled": false
+    },
+    "discord": {
+      "enabled": false
+    }
+  }
+}
